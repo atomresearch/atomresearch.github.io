@@ -2,7 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import rehypeRaw from "rehype-raw";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { ArrowLeft, Copy, ExternalLink, X } from "lucide-react";
 import { posts } from "@/data/posts";
 import type { Post } from "@/data/posts";
@@ -32,19 +35,20 @@ export const Route = createFileRoute("/blog/$slug")({
     return { post };
   },
   notFoundComponent: () => (
-    <div className="mx-auto max-w-3xl px-6 py-32 text-center">
-      <h1 className="font-display text-3xl font-semibold">Post not found</h1>
-      <Link to="/blog" className="mt-4 inline-block text-primary hover:underline">← Back to blog</Link>
-    </div>
-  ),
-  component: PostPage,
-});
+        <div className="mx-auto max-w-3xl px-6 py-32 text-center">
+          <h1 className="font-display text-3xl font-semibold">Post not found</h1>
+          <Link to="/blog" className="mt-4 inline-block text-primary hover:underline">← Back to blog</Link>
+        </div>
+      ),
+      component: PostPage,
+  });
 
 function PostPage() {
   const { post } = Route.useLoaderData() as { post: Post };
   const [zoom, setZoom] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const related = post.relatedPaperIds?.map((id) => papers.find((p) => p.id === id)).filter(Boolean) ?? [];
+  const markdownContent = post.content.replace(/^\s*\$\$(.+?)\$\$\s*$/gm, (_match, equation) => `\n$$\n${equation.trim()}\n$$\n`);
   const copyBibtex = async () => {
     if (!post.bibtex) return;
     await navigator.clipboard.writeText(post.bibtex);
@@ -89,14 +93,25 @@ function PostPage() {
         </div>
       )}
 
-      <div className="mt-12 max-w-none text-foreground/85 leading-relaxed text-[1.05rem]">
+      <div className="markdown-content mt-12 max-w-none text-foreground/85 leading-relaxed text-[1.05rem]">
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={{
-            img: ({ src, alt }) => {
+            img: ({ src, alt, title }) => {
               const resolvedSrc = resolveCoverUrl(src) ?? (src as string);
-              return <img src={resolvedSrc} alt={alt} loading="lazy" onClick={() => setZoom(resolvedSrc)} className="my-8 rounded-xl border border-border cursor-zoom-in w-full" />;
+              return (
+                <figure className="my-8">
+                  <img
+                    src={resolvedSrc}
+                    alt={alt}
+                    loading="lazy"
+                    onClick={() => setZoom(resolvedSrc)}
+                    className="w-full rounded-xl border border-border cursor-zoom-in"
+                  />
+                  {title && <figcaption className="mt-3 text-center text-sm text-muted-foreground">{title}</figcaption>}
+                </figure>
+              );
             },
             a: ({ href, children }) => <a href={href as string} className="text-primary hover:underline" target="_blank" rel="noreferrer">{children}</a>,
             strong: ({ children }) => <strong className="text-foreground font-semibold">{children}</strong>,
@@ -114,7 +129,7 @@ function PostPage() {
             blockquote: ({ children }) => <blockquote className="my-6 border-l-2 border-primary pl-5 italic text-foreground/80">{children}</blockquote>,
           }}
         >
-          {post.content}
+          {markdownContent}
         </ReactMarkdown>
       </div>
 

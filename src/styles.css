@@ -106,6 +106,18 @@
 }
 
 @layer utilities {
+  .markdown-content .katex-display {
+    display: block;
+    text-align: center;
+    margin: 1.5rem 0;
+    overflow: visible;
+  }
+
+  .markdown-content .katex-display > .katex {
+    display: inline-block;
+    max-width: 100%;
+  }
+
   .bg-grid {
     background-image:
       linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
