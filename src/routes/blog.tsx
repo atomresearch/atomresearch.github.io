@@ -6,6 +6,10 @@ export const Route = createFileRoute("/blog")({
     meta: [
       { title: "Blog - ATOM" },
       { name: "description", content: "Research updates, paper explanations, and demos from the ATOM Research Group." },
+      { name: "keywords", content: "ATOM blog, ATOM Research Group Blog, ATOM Research Blog, research updates, machine learning, agent foundation models, papers, world models, POMDP, MDP, agents, LLM" },
+      { property: "og:image", content: "/preview.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/preview.png" },
       { property: "og:title", content: "Blog - ATOM" },
       { property: "og:description", content: "Research updates and paper explanations." },
     ],

@@ -15,6 +15,10 @@ export const Route = createFileRoute("/")({
         content:
           "Building general-purpose learning and reasoning agents that actively explore, build explanatory world models, and run their own experiments.",
       },
+      { name: "keywords", content: "ATOM Research Group, Agent Foundation Model, autonomous agents, world models, model discovery, active learning, ATOM, ATOM Research, PODMP, LLM" },
+      { property: "og:image", content: `${baseUrl}preview.png` },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${baseUrl}preview.png` },
       { property: "og:title", content: "ATOM - Toward an Agent Foundation Model" },
       {
         property: "og:description",

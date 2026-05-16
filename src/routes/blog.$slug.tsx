@@ -20,10 +20,13 @@ export const Route = createFileRoute("/blog/$slug")({
       meta: [
         { title: `${post.title} - ATOM Blog` },
         { name: "description", content: post.excerpt },
+        { name: "keywords", content: (post.tags || []).join(", ") + ", ATOM Research Group, Toward Agent Foundation Models, ATOM, POMDP, MDP, ATOM Research, World Models" },
+        { property: "og:url", content: `${import.meta.env.BASE_URL}blog/${params.slug}` },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.excerpt },
         { property: "og:image", content: post.cover },
         { property: "og:type", content: "article" },
+        { property: "article:published_time", content: post.date },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: post.cover },
       ],

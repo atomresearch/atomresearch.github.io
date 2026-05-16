@@ -16,6 +16,7 @@ import { Route as MembersRouteImport } from './routes/members'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MembersIdRouteImport } from './routes/members.$id'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const ResearchRoute = ResearchRouteImport.update({
@@ -53,6 +54,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MembersIdRoute = MembersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => MembersRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -63,32 +69,35 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRoute
+  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
   '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/members/$id': typeof MembersIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRoute
+  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
   '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/members/$id': typeof MembersIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRoute
+  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
   '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/members/$id': typeof MembersIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/philosophy'
     | '/research'
     | '/blog/$slug'
+    | '/members/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/philosophy'
     | '/research'
     | '/blog/$slug'
+    | '/members/$id'
   id:
     | '__root__'
     | '/'
@@ -121,13 +132,14 @@ export interface FileRouteTypes {
     | '/philosophy'
     | '/research'
     | '/blog/$slug'
+    | '/members/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRouteWithChildren
   JoinRoute: typeof JoinRoute
-  MembersRoute: typeof MembersRoute
+  MembersRoute: typeof MembersRouteWithChildren
   NewsRoute: typeof NewsRoute
   PhilosophyRoute: typeof PhilosophyRoute
   ResearchRoute: typeof ResearchRoute
@@ -184,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/members/$id': {
+      id: '/members/$id'
+      path: '/$id'
+      fullPath: '/members/$id'
+      preLoaderRoute: typeof MembersIdRouteImport
+      parentRoute: typeof MembersRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -204,11 +223,22 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface MembersRouteChildren {
+  MembersIdRoute: typeof MembersIdRoute
+}
+
+const MembersRouteChildren: MembersRouteChildren = {
+  MembersIdRoute: MembersIdRoute,
+}
+
+const MembersRouteWithChildren =
+  MembersRoute._addFileChildren(MembersRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
   JoinRoute: JoinRoute,
-  MembersRoute: MembersRoute,
+  MembersRoute: MembersRouteWithChildren,
   NewsRoute: NewsRoute,
   PhilosophyRoute: PhilosophyRoute,
   ResearchRoute: ResearchRoute,

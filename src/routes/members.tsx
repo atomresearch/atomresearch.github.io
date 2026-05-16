@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ExternalLink, Github, GraduationCap, Mail, Twitter } from "lucide-react";
 import { members, type Member } from "@/data/members";
@@ -8,6 +8,10 @@ export const Route = createFileRoute("/members")({
     meta: [
       { title: "Members - ATOM" },
       { name: "description", content: "The people behind ATOM: faculty, postdocs, students, and researchers." },
+      { name: "keywords", content: "ATOM members, researchers, faculty, postdocs, students" },
+      { property: "og:image", content: "/preview.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/preview.png" },
       { property: "og:title", content: "Members - ATOM" },
       { property: "og:description", content: "Faculty, postdocs, students, and visiting researchers at the ATOM Research Group." },
     ],
@@ -20,6 +24,28 @@ function MembersPage() {
   const others = members.filter((m) => m.group === "members");
   return (
     <section className="mx-auto max-w-7xl px-6 pt-20 pb-24">
+      {/* JSON-LD for members to help search engines index individual people */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": members.map((m) => ({
+              "@type": "Person",
+              "@id": `#member-${m.id}`,
+              name: m.name,
+              jobTitle: m.role,
+              affiliation: m.affiliation,
+              image: m.photo,
+              url: m.links.website ?? undefined,
+              sameAs: [m.links.website, m.links.github, m.links.twitter, m.links.scholar].filter(Boolean),
+              email: m.links.email ? `mailto:${m.links.email}` : undefined,
+              description: m.bio,
+            })),
+          }),
+        }}
+      />
+
       <h1 className="font-display text-5xl md:text-6xl font-semibold tracking-tight">Members</h1>
       <p className="mt-5 max-w-2xl text-lg text-muted-foreground">The people building ATOM.</p>
 
@@ -54,7 +80,9 @@ function Section({ title, people, large = false }: { title: string; people: Memb
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <h3 className="font-display text-sm font-semibold">{m.name}</h3>
+                <h3 id={`member-${m.id}`} className="font-display text-sm font-semibold">
+                  <Link to="/members/$id" params={{ id: m.id }} className="hover:underline">{m.name}</Link>
+                </h3>
                 <div className="text-sm text-primary mt-0.5">{m.role}</div>
                 <div className="text-sm text-muted-foreground mt-0.5">{m.affiliation}</div>
               </div>

@@ -9,6 +9,10 @@ export const Route = createFileRoute("/join")({
     meta: [
       { title: "Join Us - ATOM" },
       { name: "description", content: "Collaborate with ATOM. We're open to new collaborators, visiting researchers, and interns." },
+      { name: "keywords", content: "Join ATOM, collaborate, internships, visiting researchers, PhD applications" },
+      { property: "og:image", content: "/preview.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/preview.png" },
       { property: "og:title", content: "Join ATOM" },
       { property: "og:description", content: "Open positions, visiting researcher info, and collaboration opportunities." },
     ],

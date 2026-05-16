@@ -6,6 +6,10 @@ export const Route = createFileRoute("/philosophy")({
     meta: [
       { title: "Philosophy - ATOM" },
       { name: "description", content: "Philosophical reflections and essays from the ATOM Research Group." },
+      { name: "keywords", content: "research philosophy, inquiry, model building, ATOM research" },
+      { property: "og:image", content: "/preview.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/preview.png" },
       { property: "og:title", content: "Philosophy - ATOM" },
     ],
   }),

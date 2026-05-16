@@ -27,7 +27,7 @@ export function Footer() {
         <div>
           <h4 className="text-xs uppercase tracking-widest text-muted-foreground">Connect</h4>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><a href="lancelot.dacosta@gmail.com" className="inline-flex items-center gap-2 hover:text-primary"><Mail className="h-4 w-4" /> Email</a></li>
+            <li><a href="mailto:lancelot.dacosta@gmail.com" className="inline-flex items-center gap-2 hover:text-primary"><Mail className="h-4 w-4" /> Email</a></li>
             <li><a href="https://github.com/atomresearch" className="inline-flex items-center gap-2 hover:text-primary"><Github className="h-4 w-4" /> GitHub</a></li>
             <li><a href="https://x.com/lancelotdacosta" className="inline-flex items-center gap-2 hover:text-primary"><Twitter className="h-4 w-4" /> Twitter / X</a></li>
           </ul>

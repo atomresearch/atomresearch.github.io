@@ -10,6 +10,10 @@ export const Route = createFileRoute("/research")({
     meta: [
       { title: "Research - ATOM" },
       { name: "description", content: "Publications and research themes from the ATOM Research Group: universal modelling, model discovery, and active learning." },
+      { name: "keywords", content: "Agent Foundation Model, probabilistic modelling, model discovery, causal representation, active learning, publications, causal inference, partial observability, large language models, world models, PODMP" },
+      { property: "og:image", content: "/preview.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/preview.png" },
       { property: "og:title", content: "Research - ATOM" },
       { property: "og:description", content: "Probabilistic program induction, world models, causal representations, and active discovery." },
     ],

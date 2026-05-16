@@ -40,7 +40,7 @@ const membersRaw: Member[] = [
     name: "Frederik Panse",
     role: "Research Intern",
     affiliation: "University of Tübingen · MPI-IS",
-    bio: "Causal representation learning for sample-efficient RL, Quantitative Data Science",
+    bio: "Bayesian ML, Cognitive Modeling, and Causality",
     photo: placeholder("fpanse"),
     links: {
       website: "https://www.linkedin.com/in/frederik-panse-199a42262/",
