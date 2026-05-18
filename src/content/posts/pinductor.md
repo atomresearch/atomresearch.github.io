@@ -53,7 +53,7 @@ Since we never see the true hidden state, we can't check whether the model's pre
 
 Here's how it works. For each candidate model, Pinductor runs a particle filter:
 
-1. **Sample** $$K$$ particles from the model's guess of where episodes start ($$\rho_0^m$$).
+1. **Sample** $$K$$ particles from the model's guess ($$\rho_0^m$$).
 2. **Propagate** each particle forward through the model's transition code ($$T^m$$), using the real actions from the data.
 3. **Predict** what observation each particle "should" see, using the LLM's observation program: $$o^i_{t+1} \sim O^m_{\text{LLM}}(s^i_{t+1}, a_t)$$.
 4. **Compare** these predictions to the actual observations.
@@ -72,11 +72,25 @@ The resulting particle-filtered posterior belief is the distribution of propagat
 $$ Q^m_{t+1}(s) \propto \sum^K_{i=1} O^m (o_{t+1}|s^i_{t+1}, a_t)\delta_{s^i_{t+1}}(s)$$
 
 Particles that predict observations close to reality get high weight; particles that hallucinate something completely different get crushed. This reweighted set becomes the updated belief. The model's overall score is the total log-likelihood of the real data under its own filtering dynamics, computed entirely from observations and actions, with zero access to hidden states.
+
+$$L(P^m ; D) = \sum_{\tau \in D} \sum^{H-1}_{t=0} E_{s_{t+1} \sim Q^m_{t+1}}[\log O^{m}(o_{t+1}| s^i_{t+1}, a_t) ] $$
+
+
+## Feedback and Refinement
+Scored candidates feed a refinement-by-execution (REx) loop: the LLM receives structured debugging feedback - execution errors, high-distance trajectory segments, and a committee-based disagreement signal highlighting uncertain transitions - and proposes targeted model repairs. Candidates are selected for refinement via UCB1, building a search tree over executable POMDP programs rather than a single chain of edits.
+
+
+## Planning
+The best model is then used for belief-space planning via an $A^*$-style POMDP planner, with the agent maintaining a particle belief updated by the same distance-kernel likelihood used during training. After each episode, newly collected trajectories are added to the dataset and a fresh REx round is triggered, keeping the model improving online.
+
+
 ## What We Found
 
-We evaluate Pinductor on five MiniGrid tasks, from simple empty rooms to complex multi-step problems like unlocking a door with a key. Despite never seeing hidden states, Pinductor matches the sample efficiency and reward of of the baselines that *does* have privileged hidden state access. It also far outperforms standard tabular baselines.
+We evaluate Pinductor on five MiniGrid tasks, from simple empty rooms to complex multi-step problems like unlocking a door with a key. Despite never seeing hidden states, Pinductor matches the sample efficiency and reward of the baselines that *does* have privileged hidden state access. It also far outperforms standard tabular baselines.
 
 ![Pinductor pipeline](../assets/posts/pinductor/e1_rewards.png "Figure: Mean episode reward (y-axis) and win rate(percentages) across 5 MiniGrid environments; error bars denote 95% percentile confidence intervals. ")
+
+Performance scales with LLM capability - weaker models often fail to cross the threshold needed to synthesize a usable world model, while stronger ones reach comparable results and degrades when semantic information about the environment (object names, layout descriptions) is withheld.
 
 The learned models maintain meaningful beliefs. As the agent gathers observations, its belief entropy drops and the posterior mass concentrates on the true latent state - exactly what you need for planning under uncertainty.
 
