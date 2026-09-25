@@ -86,7 +86,7 @@ The best model is then used for belief-space planning via an $A^*$-style POMDP p
 
 ## What We Found
 
-We evaluate Pinductor on five MiniGrid tasks, from simple empty rooms to complex multi-step problems like unlocking a door with a key. Despite never seeing hidden states, Pinductor matches the sample efficiency and reward of the baselines that *does* have privileged hidden state access. It also far outperforms standard tabular baselines.
+We evaluate Pinductor on five MiniGrid, Blocksworld and multiple minesweeper, ranging from simple empty rooms to complex multi-step problems like unlocking a door with a key, avoiding traps etc. Despite never seeing hidden states, Pinductor matches the sample efficiency and reward of the baselines that *does* have privileged hidden state access. It also far outperforms standard tabular baselines.
 
 ![Pinductor pipeline](../assets/posts/pinductor/e1_rewards.png "Figure: Mean episode reward (y-axis) and win rate(percentages) across 5 MiniGrid environments; error bars denote 95% percentile confidence intervals. ")
 

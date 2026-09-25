@@ -19,7 +19,13 @@ export function getNewsLink(item: NewsItem): NewsLink | null {
 }
 
 export const news: NewsItem[] = [
-    {
+  {
+    date: "2026-09-25",
+    text: "NeurIPS: ",
+    highlight: "Pinductor accepted at NeurIPS main conference",
+    link: { kind: "blog", slug: "pinductor" },
+  },
+  {
     date: "2026-05-16",
     text: "New blog post:",
     highlight: "LLM guided world model synthesis",

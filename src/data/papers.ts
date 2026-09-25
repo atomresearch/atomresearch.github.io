@@ -20,9 +20,9 @@ export const papers: Paper[] = [
     title: "Learning POMDP World Models from Observations with Language-Model Priors",
     authors: ["V. Six", "F. Panse", "M. Fajeau", "L. D. Costa", "M. Sharma", "A. amayuelas", "T. Z. Xiao", "D. Hyland", "P. Hennig", "B. Scholkopf"],
     groupAuthors: ["V. Six", "F. Panse", "M. Fajeau", "L. D. Costa", "M. Sharma", "A. amayuelas", "T. Z. Xiao", "D. Hyland"],
-    venue: "arXiv preprint",
-    year: 2025,
-    date: "2025-09-12",
+    venue: "NeurIPS",
+    year: 2026,
+    date: "2026-05-14",
     abstract:
       "We propose ATOM, a generalist agent that learns probabilistic world models through active exploration and self-directed experimentation, achieving extreme sample efficiency across procedurally generated environments.",
     tags: ["Agent Foundation Model", "Active Learning", "World Models"],

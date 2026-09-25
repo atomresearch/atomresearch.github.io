@@ -2,16 +2,16 @@ import { createContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
 export const ThemeCtx = createContext<{ theme: Theme; toggle: () => void }>({
-  theme: "dark",
+  theme: "light",
   toggle: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     const saved = (typeof window !== "undefined" && localStorage.getItem("atom-theme")) as Theme | null;
-    const initial: Theme = saved ?? "dark";
+    const initial: Theme = saved ?? "light";
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
   }, []);

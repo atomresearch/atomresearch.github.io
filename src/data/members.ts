@@ -104,7 +104,7 @@ const membersRaw: Member[] = [
     links: {
       website: "https://www.amayuelas.me/",
       scholar: "https://scholar.google.com/citations?user=QGQ2G28AAAAJ&hl=en",
-      email: "mridulsharma3301@gmail.com",
+      email: "amayuelas@ucsb.edu",
     },
     group: "members",
   },
