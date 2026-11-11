@@ -1,13 +1,13 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "atomresearch.github.io",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "build": "vite build && node scripts/prerender-meta.mjs",
+    "build:dev": "vite build --mode development && node scripts/prerender-meta.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."

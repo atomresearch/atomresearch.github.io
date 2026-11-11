@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/</loc>
+    <loc>https://atomresearch.github.io/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/research</loc>
+    <loc>https://atomresearch.github.io/research</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/blog</loc>
+    <loc>https://atomresearch.github.io/blog</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/members</loc>
+    <loc>https://atomresearch.github.io/members</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/news</loc>
+    <loc>https://atomresearch.github.io/news</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/philosophy</loc>
+    <loc>https://atomresearch.github.io/join</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/join</loc>
+    <loc>https://atomresearch.github.io/philosophy</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>/blog/pinductor</loc>
+    <loc>https://atomresearch.github.io/blog/pinductor</loc>
+    <lastmod>2026-05-16</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>/members/vsix</loc>
+    <loc>https://atomresearch.github.io/members/vsix</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/fpanse</loc>
+    <loc>https://atomresearch.github.io/members/fpanse</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/mfajeau</loc>
+    <loc>https://atomresearch.github.io/members/mfajeau</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/ldc</loc>
+    <loc>https://atomresearch.github.io/members/ldc</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/msharma</loc>
+    <loc>https://atomresearch.github.io/members/msharma</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/aamayuelas</loc>
+    <loc>https://atomresearch.github.io/members/aamayuelas</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/txiao</loc>
+    <loc>https://atomresearch.github.io/members/txiao</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/members/dhyland</loc>
+    <loc>https://atomresearch.github.io/members/dhyland</loc>
     <priority>0.5</priority>
   </url>
 </urlset>
