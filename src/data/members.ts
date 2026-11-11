@@ -58,9 +58,9 @@ const membersRaw: Member[] = [
     bio: "World Models, Custom Cuda Kernels and High Performance Computing",
     photo: placeholder("mfajeau"),
     links: {
-      website: "https://www.linkedin.com/in/mathis-fajeau/",
-      github: "https://github.com/ZWhimsi",
-      email: "fajeaumathis8@gmail.com",
+      website: "https://mtsfj.github.io/",
+      github: "https://github.com/mtsfj",
+      email: "mathis.fajeau@inria.fr",
     },
     group: "members",
   },
