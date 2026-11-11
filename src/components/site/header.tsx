@@ -1,118 +1,107 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/hooks/use-theme";
 import { cn } from "@/lib/utils";
+import { AtomWordmark } from "./logo";
 
-const NAV = [
-  { to: "/", label: "Home" },
+/** Primary navigation. Add a page here to show it in the header and footer. */
+export const NAV = [
   { to: "/research", label: "Research" },
+  { to: "/news", label: "News" },
   { to: "/blog", label: "Blog" },
   { to: "/members", label: "Members" },
-  // { to: "/join", label: "Join Us" },
 ] as const;
 
 export function Header() {
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
-  const [condensed, setCondensed] = useState(false);
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    const onScroll = () => setCondensed(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile menu on navigation and on Escape.
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-sm bg-background/95 border-b border-border/60">
-      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="group" aria-label="Atom Research Group">
-          <span className="relative block h-7 w-58 overflow-hidden font-display text-lg font-semibold tracking-tight">
-            <span className="absolute left-0 top-0">A</span>
-            <motion.span
-              initial={false}
-              animate={condensed ? { opacity: 0, x: 6 } : { opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-[0.67rem] top-0 whitespace-nowrap"
-            >
-              TOM Research Group
-            </motion.span>
-            <motion.span
-              initial={false}
-              animate={condensed ? { opacity: 1, x: 0 } : { opacity: 0, x: 38 }}
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-[0.9rem] top-0"
-            >
-              R
-            </motion.span>
-            <motion.span
-              initial={false}
-              animate={condensed ? { opacity: 1, x: 0 } : { opacity: 0, x: 96 }}
-              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-7 top-0"
-            >
-              G
-            </motion.span>
-          </span>
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b bg-background/85 backdrop-blur-md transition-colors",
+        scrolled || open ? "border-border" : "border-transparent",
+      )}
+    >
+      <div className="container-page flex h-16 items-center justify-between gap-4">
+        <Link to="/" className="-ml-1 rounded-md px-1 py-1">
+          <AtomWordmark />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {NAV.map((n) => {
-            const active = n.to === "/" ? path === "/" : path.startsWith(n.to);
-            return (
+        <div className="flex items-center gap-1">
+          <nav aria-label="Main" className="mr-2 hidden items-center gap-1 md:flex">
+            {NAV.map((item) => (
               <Link
-                key={n.to}
-                to={n.to}
-                className={cn(
-                  "px-3 py-1.5 rounded-md text-sm transition-colors",
-                  active
-                    ? "text-foreground bg-secondary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
-                )}
+                key={item.to}
+                to={item.to}
+                className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{ className: "!text-foreground bg-secondary" }}
               >
-                {n.label}
+                {item.label}
               </Link>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
 
-        <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={toggle}
-            aria-label="Toggle theme"
-            className="h-9 w-9 grid place-items-center rounded-md hover:bg-secondary transition-colors"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="grid h-10 w-10 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Menu"
-            className="md:hidden h-9 w-9 grid place-items-center rounded-md hover:bg-secondary"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            className="grid h-10 w-10 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground md:hidden"
           >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {open && (
-        <div className="md:hidden border-t border-border/60 bg-background/95">
-          <nav className="px-6 py-3 flex flex-col">
-            {NAV.map((n) => (
+      <nav
+        id="mobile-nav"
+        aria-label="Main"
+        hidden={!open}
+        className="border-t border-border md:hidden"
+      >
+        <ul className="container-page py-3">
+          {NAV.map((item) => (
+            <li key={item.to}>
               <Link
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className="py-2 text-sm text-muted-foreground hover:text-foreground"
+                to={item.to}
+                className="block border-b border-border/60 py-3.5 font-display text-2xl text-muted-foreground last:border-0"
+                activeProps={{ className: "!text-foreground" }}
               >
-                {n.label}
+                {item.label}
               </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

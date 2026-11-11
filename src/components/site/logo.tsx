@@ -1,17 +1,41 @@
-// Replace with your real logo. SVG keeps it crisp at any size.
-export function AtomLogo({ className = "h-8 w-8" }: { className?: string }) {
+import { cn } from "@/lib/utils";
+
+/**
+ * The ATOM mark: a nucleus and three orbits, with one electron picked out in
+ * the signal colour. Strokes use `currentColor`, so the mark follows the text
+ * colour of its parent.
+ */
+export function AtomLogo({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 64 64" className={className} fill="none" aria-label="ATOM logo">
-      <defs>
-        <linearGradient id="atomG" x1="0" y1="0" x2="64" y2="64">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.4" />
-        </linearGradient>
-      </defs>
-      <circle cx="32" cy="32" r="4" fill="url(#atomG)" />
-      <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#atomG)" strokeWidth="1.6" />
-      <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#atomG)" strokeWidth="1.6" transform="rotate(60 32 32)" />
-      <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#atomG)" strokeWidth="1.6" transform="rotate(120 32 32)" />
+    <svg
+      viewBox="0 0 32 32"
+      className={cn("h-7 w-7", className)}
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <g stroke="currentColor" strokeWidth="1.35">
+        <ellipse cx="16" cy="16" rx="13.2" ry="5.1" />
+        <ellipse cx="16" cy="16" rx="13.2" ry="5.1" transform="rotate(60 16 16)" />
+        <ellipse cx="16" cy="16" rx="13.2" ry="5.1" transform="rotate(120 16 16)" />
+      </g>
+      <circle cx="16" cy="16" r="2.5" fill="currentColor" />
+      <circle cx="22.6" cy="4.57" r="2.1" fill="var(--signal)" />
     </svg>
+  );
+}
+
+/** Mark and wordmark together, as used in the header and footer. */
+export function AtomWordmark({ className }: { className?: string }) {
+  return (
+    <span className={cn("inline-flex items-center gap-2.5", className)}>
+      <AtomLogo />
+      <span className="flex items-baseline gap-2">
+        <span className="text-[1.05rem] font-semibold tracking-[0.14em]">ATOM</span>
+        <span className="hidden text-sm text-muted-foreground min-[380px]:inline">
+          Research Group
+        </span>
+      </span>
+    </span>
   );
 }
