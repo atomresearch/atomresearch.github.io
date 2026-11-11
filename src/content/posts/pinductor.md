@@ -12,6 +12,7 @@ tags:
   - "World Models"
 arxiv: "https://arxiv.org/pdf/2605.13740"
 github: "https://github.com/atomresearch/pinductor"
+explainer: "https://mtsfj.github.io/articles/pinductor.html"
 relatedPaperIds:
   - 
 bibtex: |
@@ -88,13 +89,13 @@ The best model is then used for belief-space planning via an $A^*$-style POMDP p
 
 We evaluate Pinductor on five MiniGrid, Blocksworld and multiple minesweeper, ranging from simple empty rooms to complex multi-step problems like unlocking a door with a key, avoiding traps etc. Despite never seeing hidden states, Pinductor matches the sample efficiency and reward of the baselines that *does* have privileged hidden state access. It also far outperforms standard tabular baselines.
 
-![Pinductor pipeline](../assets/posts/pinductor/e1_rewards.png "Figure: Mean episode reward (y-axis) and win rate(percentages) across 5 MiniGrid environments; error bars denote 95% percentile confidence intervals. ")
+![Bar chart of mean episode reward and win rate across five MiniGrid environments](../assets/posts/pinductor/e1_rewards.png "Figure: Mean episode reward (y-axis) and win rate(percentages) across 5 MiniGrid environments; error bars denote 95% percentile confidence intervals. ")
 
 Performance scales with LLM capability - weaker models often fail to cross the threshold needed to synthesize a usable world model, while stronger ones reach comparable results and degrades when semantic information about the environment (object names, layout descriptions) is withheld.
 
 The learned models maintain meaningful beliefs. As the agent gathers observations, its belief entropy drops and the posterior mass concentrates on the true latent state - exactly what you need for planning under uncertainty.
 
-![Pinductor pipeline](../assets/posts/pinductor/e1_belief_entropy.png "Figure:  Left: belief entropy over episode steps. Right: posterior mass on the true hidden state and MAP-belief accuracy")
+![Line charts of belief entropy over episode steps, and of posterior mass on the true hidden state with MAP-belief accuracy](../assets/posts/pinductor/e1_belief_entropy.png "Figure:  Left: belief entropy over episode steps. Right: posterior mass on the true hidden state and MAP-belief accuracy")
 
 ## Why It Matters
 
