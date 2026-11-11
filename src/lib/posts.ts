@@ -8,6 +8,7 @@ export type Post = {
   tags?: string[];
   arxiv?: string;
   github?: string;
+  explainer?: string;
   publishedVersion?: string;
   bibtex?: string;
   relatedPaperIds?: string[];
@@ -16,7 +17,7 @@ export type Post = {
 
 type FrontmatterValue = string | string[];
 
-const postCoverAssets = import.meta.glob("../assets/posts/**/*.{png,jpg,jpeg,webp,svg}", {
+const postCoverAssets = import.meta.glob("../assets/posts/**/*.{png,jpg,jpeg,webp,avif,svg}", {
   eager: true,
   query: "?url",
   import: "default",
@@ -174,6 +175,7 @@ function parseFrontmatter(raw: string, filePath: string): Post {
     tags: asStringArray(data.tags),
     arxiv: typeof data.arxiv === "string" ? data.arxiv : undefined,
     github: typeof data.github === "string" ? data.github : undefined,
+    explainer: typeof data.explainer === "string" ? data.explainer : undefined,
     publishedVersion: typeof data.publishedVersion === "string" ? data.publishedVersion : undefined,
     bibtex: typeof data.bibtex === "string" ? data.bibtex : undefined,
     relatedPaperIds: asStringArray(data.relatedPaperIds),

@@ -1,90 +1,102 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
-import { ThemeProvider } from "@/components/site/theme-provider";
-import { Header } from "@/components/site/header";
+import { Link, Outlet, createRootRoute, useRouter } from "@tanstack/react-router";
 import { Footer } from "@/components/site/footer";
+import { Header } from "@/components/site/header";
+import { ThemeProvider } from "@/components/site/theme-provider";
+import { Button } from "@/components/ui/button";
+import { jsonLdTags, useDocumentHead } from "@/lib/seo";
+import { siteGraph } from "@/lib/structured-data";
 
-function NotFoundComponent() {
+export const Route = createRootRoute({
+  // The group and the website, described on every page for search engines.
+  head: () => ({ meta: jsonLdTags(siteGraph()) }),
+  component: RootComponent,
+  notFoundComponent: NotFound,
+  errorComponent: ErrorScreen,
+});
+
+function RootComponent() {
+  useDocumentHead();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <ThemeProvider>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:text-background"
+      >
+        Skip to content
+      </a>
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main id="main" className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
       </div>
+    </ThemeProvider>
+  );
+}
+
+function Message({
+  code,
+  title,
+  children,
+  actions,
+}: {
+  code?: string;
+  title: string;
+  children: React.ReactNode;
+  actions: React.ReactNode;
+}) {
+  return (
+    <div className="container-page flex min-h-[60vh] flex-col items-start justify-center py-24">
+      {code && <p className="eyebrow mb-4">{code}</p>}
+      <h1 className="text-4xl tracking-tight md:text-5xl">{title}</h1>
+      <p className="mt-4 max-w-md text-muted-foreground">{children}</p>
+      <div className="mt-8 flex flex-wrap gap-3">{actions}</div>
     </div>
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function NotFound() {
+  return (
+    <Message
+      code="404"
+      title="Page not found"
+      actions={
+        <Button asChild>
+          <Link to="/">Go home</Link>
+        </Button>
+      }
+    >
+      The page you're looking for doesn't exist or has been moved.
+    </Message>
+  );
+}
+
+function ErrorScreen({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+    <Message
+      title="This page didn't load"
+      actions={
+        <>
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Try again
-          </button>
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
-    </div>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/">Go home</Link>
+          </Button>
+        </>
+      }
+    >
+      Something went wrong on our end. You can try refreshing or head back home.
+    </Message>
   );
-}
-
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
-});
-
-function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <div className="min-h-screen flex flex-col bg-background text-foreground">
-          <Header />
-          <main className="flex-1 pt-16">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
-}
-
-export function TSRFastRefreshAnchorRoot() {
-  return null;
 }

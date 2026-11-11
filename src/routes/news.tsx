@@ -1,109 +1,75 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Newspaper } from "lucide-react";
-import { getNewsLink, news } from "@/data/news";
+import { createFileRoute } from "@tanstack/react-router";
+import { NewsText } from "@/components/site/news-item";
+import { PageHeader } from "@/components/site/section";
+import { news, type NewsItem } from "@/data/news";
+import { byDateDesc, formatDate } from "@/lib/format";
+import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
-    meta: [
-      { title: "News - ATOM" },
-      {
-        name: "description",
-        content: "All news, updates, talks, and paper announcements from the ATOM Research Group.",
-      },
-      { name: "keywords", content: "ATOM news, announcements, talks, paper releases" },
-      { property: "og:image", content: "/preview.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/preview.png" },
-      { property: "og:title", content: "News - ATOM" },
-      { property: "og:description", content: "All updates from the ATOM Research Group." },
-    ],
+    meta: staticPageMeta("/news", { jsonLd: breadcrumbs([{ name: "News", path: "/news" }]) }),
   }),
   component: NewsPage,
 });
 
+// Newest first, grouped by year.
+const years = [...news]
+  .sort(byDateDesc)
+  .reduce<{ year: string; items: NewsItem[] }[]>((groups, item) => {
+    const year = item.date.slice(0, 4);
+    const group = groups.find((g) => g.year === year);
+    if (group) group.items.push(item);
+    else groups.push({ year, items: [item] });
+    return groups;
+  }, []);
+
 function NewsPage() {
-  const sorted = [...news].sort((a, b) => +new Date(b.date) - +new Date(a.date));
-
-  // Group by year for easy scanning across many entries
-  const byYear = sorted.reduce<Record<string, typeof sorted>>((acc, n) => {
-    const y = new Date(n.date).getFullYear().toString();
-    (acc[y] ||= []).push(n);
-    return acc;
-  }, {});
-  const years = Object.keys(byYear).sort((a, b) => +b - +a);
-
   return (
-    <section className="mx-auto max-w-4xl px-6 pt-24 pb-24">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" /> Back home
-      </Link>
-      <div className="mt-6 flex items-center gap-3">
-        <Newspaper className="h-6 w-6 text-primary" />
-        <h1 className="font-display text-5xl md:text-6xl font-semibold tracking-tight">News</h1>
-      </div>
-      <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-        Paper announcements, talks, releases, and research updates.
-      </p>
+    <>
+      <PageHeader title="News">
+        <p>Paper announcements, talks, releases, and research updates.</p>
+      </PageHeader>
 
-      <div className="mt-14 space-y-14">
-        {years.map((year) => (
-          <div key={year}>
-            <h2 className="font-display text-sm font-semibold tracking-widest uppercase text-muted-foreground">
-              {year}
-            </h2>
-            <ul className="mt-4 divide-y divide-border/60 border-y border-border/60">
-              {byYear[year].map((n, i) => {
-                const date = new Date(n.date).toLocaleDateString(undefined, {
-                  month: "short",
-                  day: "numeric",
-                });
-                const link = getNewsLink(n);
-                const body = (
-                  <span className="text-sm text-foreground/85">
-                    {n.text}
-                    {n.highlight && (
-                      <>
-                        {" "}
-                        <span className="text-primary font-medium">{n.highlight}</span>
-                      </>
-                    )}
-                  </span>
-                );
-                return (
-                  <li key={i} className="flex items-baseline gap-4 py-4">
-                    <time className="shrink-0 w-20 text-xs font-mono text-muted-foreground tabular-nums">
-                      {date}
+      <div className="container-page">
+        <div className="max-w-3xl">
+          {years.map(({ year, items }, y) => (
+            <section key={year} aria-labelledby={`year-${year}`} className="relative">
+              <h2
+                id={`year-${year}`}
+                className="sticky top-16 z-10 -ml-px flex items-center gap-4 bg-background/90 py-3 font-display text-3xl backdrop-blur-sm"
+              >
+                {year}
+                <span className="h-px flex-1 bg-border" aria-hidden="true" />
+              </h2>
+              {/* The rail: a line with one marker per item. */}
+              <ol className="relative ml-[5px] border-l border-border-strong pb-10 pt-3">
+                {items.map((item, i) => (
+                  <li
+                    key={item.date + item.highlight}
+                    className="relative pb-8 pl-7 last:pb-0 md:pl-9"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={
+                        y === 0 && i === 0
+                          ? "absolute -left-[6px] top-[5px] h-[11px] w-[11px] rounded-full bg-signal ring-4 ring-background"
+                          : "absolute -left-[5px] top-[6px] h-[9px] w-[9px] rounded-full border-[1.5px] border-foreground/60 bg-background ring-4 ring-background"
+                      }
+                    />
+                    <time dateTime={item.date} className="font-mono text-xs text-muted-foreground">
+                      {formatDate(item.date, "dayMonth")}
                     </time>
-                    {link?.kind === "blog" ? (
-                      <Link
-                        to="/blog/$slug"
-                        params={{ slug: link.slug }}
-                        className="flex-1 hover:opacity-90 transition"
-                      >
-                        {body}
-                      </Link>
-                    ) : link?.kind === "external" ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex-1 hover:opacity-90"
-                      >
-                        {body}
-                      </a>
-                    ) : (
-                      <span className="flex-1">{body}</span>
-                    )}
+                    <p className="mt-1 text-lg leading-snug">
+                      <NewsText item={item} />
+                    </p>
                   </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+                ))}
+              </ol>
+            </section>
+          ))}
+        </div>
       </div>
-    </section>
+    </>
   );
 }

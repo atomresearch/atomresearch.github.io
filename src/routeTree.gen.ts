@@ -9,21 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResearchRouteImport } from './routes/research'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as NewsRouteImport } from './routes/news'
-import { Route as MembersRouteImport } from './routes/members'
 import { Route as JoinRouteImport } from './routes/join'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResearchIndexRouteImport } from './routes/research.index'
+import { Route as MembersIndexRouteImport } from './routes/members.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as ResearchIdRouteImport } from './routes/research.$id'
 import { Route as MembersIdRouteImport } from './routes/members.$id'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
-const ResearchRoute = ResearchRouteImport.update({
-  id: '/research',
-  path: '/research',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PhilosophyRoute = PhilosophyRouteImport.update({
   id: '/philosophy',
   path: '/philosophy',
@@ -34,19 +30,9 @@ const NewsRoute = NewsRouteImport.update({
   path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -54,106 +40,128 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResearchIndexRoute = ResearchIndexRouteImport.update({
+  id: '/research/',
+  path: '/research/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembersIndexRoute = MembersIndexRouteImport.update({
+  id: '/members/',
+  path: '/members/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchIdRoute = ResearchIdRouteImport.update({
+  id: '/research/$id',
+  path: '/research/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MembersIdRoute = MembersIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => MembersRoute,
+  id: '/members/$id',
+  path: '/members/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
+  '/blog/': typeof BlogIndexRoute
+  '/members/': typeof MembersIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
+  '/blog': typeof BlogIndexRoute
+  '/members': typeof MembersIndexRoute
+  '/research': typeof ResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
   '/join': typeof JoinRoute
-  '/members': typeof MembersRouteWithChildren
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
+  '/blog/': typeof BlogIndexRoute
+  '/members/': typeof MembersIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blog'
     | '/join'
-    | '/members'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
+    | '/blog/'
+    | '/members/'
+    | '/research/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blog'
     | '/join'
-    | '/members'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
+    | '/blog'
+    | '/members'
+    | '/research'
   id:
     | '__root__'
     | '/'
-    | '/blog'
     | '/join'
-    | '/members'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
+    | '/blog/'
+    | '/members/'
+    | '/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRouteWithChildren
   JoinRoute: typeof JoinRoute
-  MembersRoute: typeof MembersRouteWithChildren
   NewsRoute: typeof NewsRoute
   PhilosophyRoute: typeof PhilosophyRoute
-  ResearchRoute: typeof ResearchRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  MembersIdRoute: typeof MembersIdRoute
+  ResearchIdRoute: typeof ResearchIdRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+  MembersIndexRoute: typeof MembersIndexRoute
+  ResearchIndexRoute: typeof ResearchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/research': {
-      id: '/research'
-      path: '/research'
-      fullPath: '/research'
-      preLoaderRoute: typeof ResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/philosophy': {
       id: '/philosophy'
       path: '/philosophy'
@@ -168,25 +176,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/join': {
       id: '/join'
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -196,52 +190,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/research/': {
+      id: '/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof ResearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/members/': {
+      id: '/members/'
+      path: '/members'
+      fullPath: '/members/'
+      preLoaderRoute: typeof MembersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/$id': {
+      id: '/research/$id'
+      path: '/research/$id'
+      fullPath: '/research/$id'
+      preLoaderRoute: typeof ResearchIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/members/$id': {
       id: '/members/$id'
-      path: '/$id'
+      path: '/members/$id'
       fullPath: '/members/$id'
       preLoaderRoute: typeof MembersIdRouteImport
-      parentRoute: typeof MembersRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
       id: '/blog/$slug'
-      path: '/$slug'
+      path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
-interface MembersRouteChildren {
-  MembersIdRoute: typeof MembersIdRoute
-}
-
-const MembersRouteChildren: MembersRouteChildren = {
-  MembersIdRoute: MembersIdRoute,
-}
-
-const MembersRouteWithChildren =
-  MembersRoute._addFileChildren(MembersRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRouteWithChildren,
   JoinRoute: JoinRoute,
-  MembersRoute: MembersRouteWithChildren,
   NewsRoute: NewsRoute,
   PhilosophyRoute: PhilosophyRoute,
-  ResearchRoute: ResearchRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  MembersIdRoute: MembersIdRoute,
+  ResearchIdRoute: ResearchIdRoute,
+  BlogIndexRoute: BlogIndexRoute,
+  MembersIndexRoute: MembersIndexRoute,
+  ResearchIndexRoute: ResearchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

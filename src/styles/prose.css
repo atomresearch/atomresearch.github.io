@@ -1,0 +1,173 @@
+/*
+ * Long-form typography for blog posts and essays.
+ * Apply `prose-atom` to the element that wraps rendered Markdown.
+ */
+@layer components {
+  .prose-atom {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    line-height: 1.7;
+    color: color-mix(in oklab, var(--foreground) 90%, transparent);
+    overflow-wrap: break-word;
+  }
+  @media (min-width: 768px) {
+    .prose-atom {
+      font-size: 1.25rem;
+    }
+  }
+
+  .prose-atom > * + * {
+    margin-top: 1.35em;
+  }
+
+  .prose-atom h2,
+  .prose-atom h3,
+  .prose-atom h4 {
+    color: var(--foreground);
+    line-height: 1.2;
+    scroll-margin-top: 6rem;
+  }
+  .prose-atom h2 {
+    font-size: 1.6em;
+    margin-top: 2.2em;
+    letter-spacing: -0.02em;
+  }
+  .prose-atom h3 {
+    font-size: 1.25em;
+    margin-top: 1.8em;
+  }
+  .prose-atom h2 + *,
+  .prose-atom h3 + * {
+    margin-top: 0.8em;
+  }
+
+  .prose-atom strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  .prose-atom a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--primary) 35%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .prose-atom a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .prose-atom ul,
+  .prose-atom ol {
+    padding-left: 1.4em;
+  }
+  .prose-atom ul {
+    list-style: disc;
+  }
+  .prose-atom ol {
+    list-style: decimal;
+  }
+  .prose-atom li + li {
+    margin-top: 0.5em;
+  }
+  .prose-atom li::marker {
+    color: var(--muted-foreground);
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+  }
+
+  .prose-atom blockquote {
+    border-left: 2px solid var(--primary);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--muted-foreground);
+  }
+
+  .prose-atom hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin-block: 2.5em;
+  }
+
+  /* Code */
+  .prose-atom code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    padding: 0.15em 0.4em;
+    border-radius: 0.35em;
+    background: var(--secondary);
+    color: var(--foreground);
+  }
+  .prose-atom pre {
+    overflow-x: auto;
+    padding: 1.1em 1.25em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    font-size: 0.78em;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+  .prose-atom pre code {
+    padding: 0;
+    background: none;
+    font-size: inherit;
+  }
+
+  /* Tables */
+  .prose-atom table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    font-variant-numeric: tabular-nums;
+  }
+  .prose-atom th,
+  .prose-atom td {
+    padding: 0.55em 0.9em;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .prose-atom th {
+    font-weight: 600;
+    color: var(--foreground);
+    border-bottom-color: var(--border-strong);
+  }
+
+  /* Figures */
+  .prose-atom figure {
+    margin-block: 2.2em;
+  }
+  .prose-atom figure img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+  .prose-atom figcaption {
+    margin-top: 0.8em;
+    font-family: var(--font-sans);
+    font-size: 0.72em;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  /* Math: display equations scroll sideways on narrow screens instead of
+     pushing the page wider. */
+  .prose-atom .katex {
+    font-size: 1em;
+  }
+  .prose-atom .katex-display {
+    margin-block: 1.6em;
+    padding-block: 0.35em;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .prose-atom .katex-display > .katex {
+    white-space: nowrap;
+  }
+}

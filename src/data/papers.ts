@@ -1,47 +1,115 @@
-// Replace this list with real publications.
-// Schema: id, title, authors[], venue, year, abstract, tags[], links{ pdf?, arxiv?, code?, project? }, bibtex
+import pipelineDark from "@/assets/papers/pinductor/pipeline-dark.svg";
+import pipelineLight from "@/assets/papers/pinductor/pipeline-light.svg";
+import mainResults from "@/assets/papers/pinductor/main-results.svg";
+
+// Publications shown on the research page, newest first.
+//
+// Optional fields:
+//   shortName   short name of the method, shown next to the title
+//   summary     two or three sentences for the home page
+//   featured    show this paper in the "Featured publication" block of the
+//               home page (the most recent featured paper wins)
+//   figure      overview figure, in a light and a dark version
+//   results     results figure shown with the paper on the research page
+//   links.blog  slug of the blog post about the paper
+//
+// Each paper gets its own page at /research/<id>/. Authors who are members
+// (by name, or by one of the `aliases` in members.ts) are highlighted and
+// linked to their profile.
+export type PaperFigure = {
+  light: string;
+  dark?: string; // falls back to `light`, shown on a white panel
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
+
 export type Paper = {
   id: string;
   title: string;
+  shortName?: string;
   authors: string[];
-  groupAuthors?: string[]; // names from members.ts to highlight
   venue: string;
   year: number;
   date: string; // ISO publication date — used for sorting
   abstract: string;
+  summary?: string;
+  featured?: boolean;
+  figure?: PaperFigure;
+  results?: PaperFigure;
   tags: string[];
-  links: { pdf?: string; arxiv?: string; code?: string; project?: string };
+  links: {
+    pdf?: string;
+    arxiv?: string;
+    code?: string;
+    project?: string;
+    explainer?: string;
+    blog?: string;
+  };
   bibtex: string;
 };
 
 export const papers: Paper[] = [
   {
-    id: "atom-2025",
+    id: "pinductor",
     title: "Learning POMDP World Models from Observations with Language-Model Priors",
-    authors: ["V. Six", "F. Panse", "M. Fajeau", "L. D. Costa", "M. Sharma", "A. amayuelas", "T. Z. Xiao", "D. Hyland", "P. Hennig", "B. Scholkopf"],
-    groupAuthors: ["V. Six", "F. Panse", "M. Fajeau", "L. D. Costa", "M. Sharma", "A. amayuelas", "T. Z. Xiao", "D. Hyland"],
+    shortName: "Pinductor",
+    featured: true,
+    summary:
+      "Pinductor (POMDP-inductor) induces executable world models from just a handful of observation-action trajectories. An LLM proposes the POMDP components as code, and a particle filter scores each candidate against the observations alone, with zero access to hidden states.",
+    figure: {
+      light: pipelineLight,
+      dark: pipelineDark,
+      alt: "The Pinductor pipeline: a replay buffer of state-free trajectories and model templates prompt an LLM to propose POMDP components; a particle filter scores them against observations and feeds refinement back; the selected model drives a POMDP solver in the environment, and episodes return to the buffer.",
+      caption: "The Pinductor pipeline, as in the paper.",
+      width: 1200,
+      height: 700,
+    },
+    results: {
+      light: mainResults,
+      alt: "Main task performance: mean return of Pinductor and the baselines on five MiniGrid environments, Block and MineSweeper, with 95% intervals for Pinductor and POMDP Coder and the optimal reference dashed.",
+      caption:
+        "Main task performance: mean return of Pinductor and the baselines on five MiniGrid environments, Block and MineSweeper.",
+      width: 1030,
+      height: 658,
+    },
+    authors: [
+      "Valentin Six",
+      "Frederik Panse",
+      "Mathis Fajeau",
+      "Lancelot Da Costa",
+      "Mridul Sharma",
+      "Alfonso Amayuelas",
+      "Tim Z. Xiao",
+      "David Hyland",
+      "Philipp Hennig",
+      "Bernhard Schölkopf",
+    ],
     venue: "NeurIPS",
     year: 2026,
     date: "2026-05-14",
     abstract:
-      "We propose ATOM, a generalist agent that learns probabilistic world models through active exploration and self-directed experimentation, achieving extreme sample efficiency across procedurally generated environments.",
+      "Whether navigating a building, operating a robot, or playing a game, an agent that acts effectively in an environment must first learn an internal model of how that environment works. Partially-observable Markov decision processes (POMDPs) provide a flexible modeling class for such internal world models, but learning them from observation-action trajectories alone is challenging and typically requires extensive environment interaction. We ask whether language-model priors can reduce costly interaction by leveraging prior knowledge, and introduce Pinductor (POMDP-inductor): an LLM proposes candidate POMDP models from a few observation-action trajectories and iteratively refines them to optimize a belief-based likelihood score. Despite relying on strictly less information, Pinductor achieves comparable performance and sample efficiency to LLM-based POMDP learning methods with privileged access to hidden states. Moreover, it is up to 330 times more sample-efficient than standard POMDP baselines such as DreamerV3, at comparable computational cost. Further results show that performance scales with LLM capability and degrades gracefully as semantic information about the environment is withheld. Together, these results position language-model priors as a practical tool for sample-efficient world-model learning under partial observability, and a step toward generalist agents in real-world environments.",
     tags: ["Agent Foundation Model", "Active Learning", "World Models"],
-    links: { arxiv: "https://arxiv.org/abs/2605.13740", code: "https://github.com/atomresearch/pinductor" },
-    bibtex: `@misc{six2026learningpomdpworldmodels,
-      title={Learning POMDP World Models from Observations with Language-Model Priors}, 
-      author={Valentin Six and Frederik Panse and Mathis Fajeau and Lancelot Da Costa and Mridul Sharma and Alfonso Amayuelas and Tim Z. Xiao and David Hyland and Philipp Hennig and Bernhard Schölkopf},
+    links: {
+      arxiv: "https://arxiv.org/abs/2605.13740",
+      code: "https://github.com/atomresearch/pinductor",
+      explainer: "https://mtsfj.github.io/articles/pinductor.html",
+      blog: "pinductor",
+    },
+    bibtex: `@inproceedings{six2026pinductor,
+      title={Pinductor: Learning {POMDP} World Models from Observations with Language-Model Priors},
+      author={Valentin Six and Frederik Panse and Mathis Fajeau and Lancelot Da Costa and Mridul Sharma and Alfonso Amayuelas and Tim Z. Xiao and David Hyland and Philipp Hennig and Bernhard Sch{\\"o}lkopf},
+      booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
       year={2026},
-      eprint={2605.13740},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2605.13740}, 
-      }`,
+      note={arXiv:2605.13740}
+    }`,
   },
   // {
   //   id: "ppi-2025",
   //   title: "Probabilistic Program Induction with Amortized Variational Search",
   //   authors: ["S. Mehta", "J. Yamamoto", "A. Rivera"],
-  //   groupAuthors: ["S. Mehta", "A. Rivera"],
   //   venue: "NeurIPS 2025",
   //   year: 2025,
   //   date: "2025-12-08",
@@ -55,7 +123,6 @@ export const papers: Paper[] = [
   //   id: "causal-mbrl-2024",
   //   title: "Causal Representations for Sample-Efficient Model-Based RL",
   //   authors: ["L. Okafor", "K. Tanaka", "M. Bauer"],
-  //   groupAuthors: ["L. Okafor", "K. Tanaka"],
   //   venue: "ICML 2024",
   //   year: 2024,
   //   date: "2024-07-21",
@@ -69,7 +136,6 @@ export const papers: Paper[] = [
   //   id: "exploration-2024",
   //   title: "Information-Theoretic Exploration via Epistemic World Models",
   //   authors: ["K. Tanaka", "A. Rivera"],
-  //   groupAuthors: ["K. Tanaka", "A. Rivera"],
   //   venue: "ICLR 2024",
   //   year: 2024,
   //   date: "2024-05-07",

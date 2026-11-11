@@ -1,41 +1,62 @@
 import { Link } from "@tanstack/react-router";
 import { Github, Mail, Twitter } from "lucide-react";
-import { AtomLogo } from "./logo";
+import site from "@/data/site.json";
+import { NAV } from "./header";
+import { AtomWordmark } from "./logo";
+
+const CONNECT = [
+  { href: `mailto:${site.email}`, label: "Email", icon: Mail },
+  { href: site.github, label: "GitHub", icon: Github },
+  { href: site.twitter, label: "Twitter / X", icon: Twitter },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 mt-32 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 grid gap-10 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-2 text-primary">
-            <AtomLogo className="h-6 w-6" />
-            <span className="font-display text-base font-semibold text-foreground">ATOM</span>
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground max-w-sm">
+    <footer className="mt-24 border-t border-border bg-surface md:mt-32">
+      <div className="container-page grid gap-10 py-12 md:grid-cols-[2fr_1fr_1fr] md:py-16">
+        <div>
+          <Link to="/" className="inline-block rounded-md">
+            <AtomWordmark />
+          </Link>
+          <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             Toward an Agent Foundation Model - building agents that explore, model, and discover.
           </p>
         </div>
-        <div>
-          <h4 className="text-xs uppercase tracking-widest text-muted-foreground">Explore</h4>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li><Link to="/research" className="hover:text-primary">Research</Link></li>
-            <li><Link to="/blog" className="hover:text-primary">Blog</Link></li>
-            <li><Link to="/members" className="hover:text-primary">Members</Link></li>
-            {/* <li><Link to="/join" className="hover:text-primary">Join Us</Link></li> */}
+
+        <nav aria-label="Footer">
+          <h2 className="eyebrow">Explore</h2>
+          <ul className="mt-4 space-y-2.5 text-sm">
+            {NAV.map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className="transition-colors hover:text-primary">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
+        </nav>
+
         <div>
-          <h4 className="text-xs uppercase tracking-widest text-muted-foreground">Connect</h4>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li><a href="mailto:lancelot.dacosta@gmail.com" className="inline-flex items-center gap-2 hover:text-primary"><Mail className="h-4 w-4" /> Email</a></li>
-            <li><a href="https://github.com/atomresearch" className="inline-flex items-center gap-2 hover:text-primary"><Github className="h-4 w-4" /> GitHub</a></li>
-            <li><a href="https://x.com/lancelotdacosta" className="inline-flex items-center gap-2 hover:text-primary"><Twitter className="h-4 w-4" /> Twitter / X</a></li>
+          <h2 className="eyebrow">Connect</h2>
+          <ul className="mt-4 space-y-2.5 text-sm">
+            {CONNECT.map(({ href, label, icon: Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-primary"
+                >
+                  <Icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <div className="border-t border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-5 text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-          <span>© {new Date().getFullYear()} ATOM Research Group. All rights reserved.</span>
+
+      <div className="border-t border-border">
+        <div className="container-page flex flex-wrap justify-between gap-2 py-5 text-xs text-muted-foreground">
+          <span>© {__BUILD_YEAR__} ATOM Research Group. All rights reserved.</span>
           <span>Crafted for open science.</span>
         </div>
       </div>

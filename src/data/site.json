@@ -1,0 +1,41 @@
+{
+  "name": "ATOM Research Group",
+  "shortName": "ATOM",
+  "url": "https://atomresearch.github.io",
+  "tagline": "Toward an Agent Foundation Model",
+  "description": "ATOM is an academic AI research group building general-purpose learning and reasoning agents that actively explore and discover world models.",
+  "ogImage": "/og.jpg",
+  "email": "lancelot.dacosta@gmail.com",
+  "github": "https://github.com/atomresearch",
+  "twitter": "https://x.com/lancelotdacosta",
+  "pages": {
+    "/": {
+      "title": "ATOM - Toward an Agent Foundation Model",
+      "description": "Building general-purpose learning and reasoning agents that actively explore, build explanatory world models, and run their own experiments."
+    },
+    "/research": {
+      "title": "Research - ATOM",
+      "description": "Publications and research themes from the ATOM Research Group: universal modelling, model discovery, and active learning."
+    },
+    "/blog": {
+      "title": "Blog - ATOM",
+      "description": "Research updates, paper explanations, and demos from the ATOM Research Group."
+    },
+    "/members": {
+      "title": "Members - ATOM",
+      "description": "The people behind ATOM: faculty, postdocs, students, and researchers."
+    },
+    "/news": {
+      "title": "News - ATOM",
+      "description": "All news, updates, talks, and paper announcements from the ATOM Research Group."
+    },
+    "/join": {
+      "title": "Join Us - ATOM",
+      "description": "Collaborate with ATOM. We're open to new collaborators, visiting researchers, and interns."
+    },
+    "/philosophy": {
+      "title": "Philosophy - ATOM",
+      "description": "Philosophical reflections and essays from the ATOM Research Group."
+    }
+  }
+}
