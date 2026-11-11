@@ -3,7 +3,7 @@ slug: pinductor
 title: "Learning POMDP World Models from Observations with Language-Model Priors"
 date: "2026-05-16"
 excerpt: "Why we believe that active world-model discovery - not larger imitation -is the missing piece on the road to general-purpose agents."
-cover: "../assets/posts/pinductor/cover.png"
+cover: "../assets/posts/pinductor/cover.webp"
 authors:
   - "ATOM"
 tags:
