@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { memberByName } from "@/data/members";
 import type { Paper, PaperFigure } from "@/data/papers";
 import { formatBibtex } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -20,9 +21,7 @@ export function Authors({ paper, className }: { paper: Paper; className?: string
     <p className={cn("text-sm text-muted-foreground", className)}>
       {paper.authors.map((author, i) => (
         <span key={author}>
-          <span className={paper.groupAuthors?.includes(author) ? "text-foreground" : undefined}>
-            {author}
-          </span>
+          <span className={memberByName(author) ? "text-foreground" : undefined}>{author}</span>
           {i < paper.authors.length - 1 && ", "}
         </span>
       ))}

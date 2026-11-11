@@ -6,6 +6,7 @@ export type Member = {
   affiliation: string;
   bio: string;
   photo: string; // URL or imported image
+  aliases?: string[]; // other spellings used in author lists ("Tim Z. Xiao")
   links: {
     website?: string;
     scholar?: string;
@@ -111,6 +112,7 @@ const membersRaw: Member[] = [
   {
     id: "txiao",
     name: "Tim Xiao",
+    aliases: ["Tim Z. Xiao"],
     role: "PhD Candidate",
     affiliation: "University of Tübingen · MPI-IS",
     bio: "Causality, Large Language Models, and World Models",
@@ -160,3 +162,7 @@ export const members: Member[] = membersRaw.map((m) => ({
 }));
 
 export const getMember = (id: string) => members.find((m) => m.id === id);
+
+/** The member an author name refers to, if any. */
+export const memberByName = (name: string) =>
+  members.find((m) => m.name === name || m.aliases?.includes(name));
