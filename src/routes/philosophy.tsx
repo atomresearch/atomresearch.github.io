@@ -97,7 +97,7 @@ function PhilosophyPage() {
         </article>
 
         <Button asChild className="mt-12">
-          <Link to="/research">
+          <Link to="/research/">
             Explore Research <ArrowRight aria-hidden="true" />
           </Link>
         </Button>

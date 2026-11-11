@@ -7,10 +7,10 @@ import { AtomWordmark } from "./logo";
 
 /** Primary navigation. Add a page here to show it in the header and footer. */
 export const NAV = [
-  { to: "/research", label: "Research" },
-  { to: "/news", label: "News" },
-  { to: "/blog", label: "Blog" },
-  { to: "/members", label: "Members" },
+  { to: "/research/", label: "Research" },
+  { to: "/news/", label: "News" },
+  { to: "/blog/", label: "Blog" },
+  { to: "/members/", label: "Members" },
 ] as const;
 
 export function Header() {
@@ -67,7 +67,9 @@ export function Header() {
             aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
             className="grid h-10 w-10 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {/* Chosen by CSS, so the right icon shows before the script runs. */}
+            <Sun className="hidden h-4 w-4 dark:block" aria-hidden="true" />
+            <Moon className="h-4 w-4 dark:hidden" aria-hidden="true" />
           </button>
           <button
             type="button"

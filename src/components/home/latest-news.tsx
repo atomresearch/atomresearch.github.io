@@ -16,7 +16,7 @@ export function LatestNews() {
           <h2 id="latest-news" className="eyebrow !font-mono">
             What's new
           </h2>
-          <Link to="/news" className={moreLinkClass}>
+          <Link to="/news/" className={moreLinkClass}>
             All updates <ArrowRight aria-hidden="true" />
           </Link>
         </div>

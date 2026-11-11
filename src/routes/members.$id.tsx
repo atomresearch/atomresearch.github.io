@@ -49,7 +49,7 @@ function MemberPage() {
     <article className="container-page max-w-4xl pt-10 md:pt-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <Link
-        to="/members"
+        to="/members/"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to members

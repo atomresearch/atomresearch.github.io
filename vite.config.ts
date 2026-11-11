@@ -13,6 +13,9 @@ function normalizeBasePath(value: string | undefined) {
 
 export default defineConfig({
   base: normalizeBasePath(process.env.VITE_BASE_PATH),
+  // The footer year is fixed at build time: the page is rendered once, ahead
+  // of time, and the browser must render the same text to take it over.
+  define: { __BUILD_YEAR__: JSON.stringify(new Date().getFullYear()) },
   plugins: [
     // Each route becomes its own chunk, so a page only loads its own code.
     TanStackRouterVite({ autoCodeSplitting: true }),

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 type Theme = "dark" | "light";
 
@@ -14,13 +14,20 @@ export const ThemeCtx = createContext<{ theme: Theme; toggle: () => void }>({
  * The initial theme (saved choice, else the system preference) is applied by
  * the inline script in index.html before first paint, so there is no flash.
  * This provider reads that state and handles the toggle.
+ *
+ * Pages are rendered at build time without knowing the visitor's theme, so the
+ * first render always says "light" (the browser must render the same markup to
+ * take the page over); the real theme is read just before the first paint.
  */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() =>
-    document.documentElement.classList.contains("dark") ? "dark" : "light",
-  );
+  const [theme, setTheme] = useState<Theme | null>(null);
+
+  useLayoutEffect(() => {
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+  }, []);
 
   useEffect(() => {
+    if (!theme) return;
     document.documentElement.classList.toggle("dark", theme === "dark");
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[theme]);
   }, [theme]);
@@ -52,5 +59,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  return <ThemeCtx.Provider value={{ theme, toggle }}>{children}</ThemeCtx.Provider>;
+  return (
+    <ThemeCtx.Provider value={{ theme: theme ?? "light", toggle }}>{children}</ThemeCtx.Provider>
+  );
 }

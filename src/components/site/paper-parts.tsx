@@ -156,7 +156,7 @@ export function PaperLinks({ paper, className }: { paper: Paper; className?: str
       ))}
       {links.blog && (
         <Button asChild size="sm" variant="outline">
-          <Link to="/blog/$slug" params={{ slug: links.blog }}>
+          <Link to="/blog/$slug/" params={{ slug: links.blog }}>
             <BookOpen aria-hidden="true" /> Blog post
           </Link>
         </Button>

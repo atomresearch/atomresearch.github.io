@@ -12,7 +12,7 @@ export function PeopleStrip() {
           <h2 id="people" className="text-3xl tracking-[-0.02em] md:text-[2.5rem]">
             The people building ATOM.
           </h2>
-          <Link to="/members" className={`${moreLinkClass} mt-4`}>
+          <Link to="/members/" className={`${moreLinkClass} mt-4`}>
             Members <ArrowRight aria-hidden="true" />
           </Link>
         </div>
@@ -20,7 +20,7 @@ export function PeopleStrip() {
           {members.map((m) => (
             <li key={m.id}>
               <Link
-                to="/members/$id"
+                to="/members/$id/"
                 params={{ id: m.id }}
                 title={m.name}
                 className="block rounded-full transition-transform hover:-translate-y-0.5"

@@ -56,7 +56,7 @@ export function Footer() {
 
       <div className="border-t border-border">
         <div className="container-page flex flex-wrap justify-between gap-2 py-5 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} ATOM Research Group. All rights reserved.</span>
+          <span>© {__BUILD_YEAR__} ATOM Research Group. All rights reserved.</span>
           <span>Crafted for open science.</span>
         </div>
       </div>

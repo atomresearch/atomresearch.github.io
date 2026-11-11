@@ -42,7 +42,7 @@ export const Route = createFileRoute("/blog/$slug")({
   notFoundComponent: () => (
     <div className="container-page py-32 text-center">
       <h1 className="text-3xl">Post not found</h1>
-      <Link to="/blog" className="link mt-4 inline-block">
+      <Link to="/blog/" className="link mt-4 inline-block">
         Back to blog
       </Link>
     </div>
@@ -66,7 +66,7 @@ function PostPage() {
     <article className="container-page pt-8 md:pt-12">
       <div className="mx-auto max-w-[44rem]">
         <Link
-          to="/blog"
+          to="/blog/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to blog
@@ -153,7 +153,7 @@ function PostPage() {
               {related.map((paper) => (
                 <li key={paper.id}>
                   <Link
-                    to="/research"
+                    to="/research/"
                     className="block h-full rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50"
                   >
                     <span className="font-mono text-xs text-primary">

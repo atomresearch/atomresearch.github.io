@@ -53,7 +53,7 @@ function MembersPage() {
                 <div className="min-w-0">
                   <h3 id={`member-${m.id}`} className="text-[1.375rem] leading-tight">
                     <Link
-                      to="/members/$id"
+                      to="/members/$id/"
                       params={{ id: m.id }}
                       className="decoration-1 underline-offset-4 hover:underline"
                     >

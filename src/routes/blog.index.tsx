@@ -79,7 +79,7 @@ function PostCard({ post, featured = false }: { post: Post; featured?: boolean }
         >
           {/* The link's ::after covers the card, so the whole teaser is clickable. */}
           <Link
-            to="/blog/$slug"
+            to="/blog/$slug/"
             params={{ slug: post.slug }}
             className="after:absolute after:inset-0 group-hover:text-primary"
           >

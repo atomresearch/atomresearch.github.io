@@ -20,7 +20,7 @@ export function NewsText({ item, className }: { item: NewsItem; className?: stri
 
   if (link?.kind === "blog") {
     return (
-      <Link to="/blog/$slug" params={{ slug: link.slug }} className={className}>
+      <Link to="/blog/$slug/" params={{ slug: link.slug }} className={className}>
         {body}
       </Link>
     );

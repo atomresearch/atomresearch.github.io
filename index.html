@@ -3,43 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--head-->
+    <!-- Page-specific tags (title, description, canonical URL, social card,
+         structured data). scripts/prerender.mjs replaces this block for each
+         page at build time, and src/lib/seo.ts keeps it current in the app. -->
     <title>ATOM - Toward an Agent Foundation Model</title>
     <meta
+      data-head
       name="description"
       content="ATOM is an academic AI research group building general-purpose learning and reasoning agents that actively explore and discover world models."
     />
+    <!--/head-->
     <meta name="author" content="ATOM Research Group" />
-    <meta name="robots" content="index,follow" />
     <meta name="google-site-verification" content="VvAkbk73YADjlvPIdP-sm7e3mv6Tk1XJQd5B5uH6RbM" />
-    <link rel="canonical" href="https://atomresearch.github.io/" />
-
-    <!-- Open Graph / Twitter. Per-page values are set at build time by
-         scripts/prerender-meta.mjs and at run time by src/lib/seo.ts. -->
     <meta property="og:site_name" content="ATOM Research Group" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://atomresearch.github.io/" />
-    <meta property="og:title" content="ATOM - Toward an Agent Foundation Model" />
-    <meta
-      property="og:description"
-      content="Building general-purpose learning and reasoning agents that actively explore, build explanatory world models, and run their own experiments."
-    />
-    <meta property="og:image" content="https://atomresearch.github.io/og.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="ATOM Research Group — Toward an Agent Foundation Model"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@atomlab" />
     <meta name="twitter:creator" content="@atomlab" />
-    <meta name="twitter:title" content="ATOM - Toward an Agent Foundation Model" />
-    <meta
-      name="twitter:description"
-      content="Building general-purpose learning and reasoning agents that actively explore, build explanatory world models, and run their own experiments."
-    />
-    <meta name="twitter:image" content="https://atomresearch.github.io/og.jpg" />
 
     <!-- The two fonts used above the fold, fetched alongside the script. -->
     <link

@@ -27,7 +27,7 @@ function HomePage() {
             title="Core research themes"
             lead="Three pillars guiding our experimental agenda."
             action={
-              <Link to="/research" className={moreLinkClass}>
+              <Link to="/research/" className={moreLinkClass}>
                 All research <ArrowRight aria-hidden="true" />
               </Link>
             }

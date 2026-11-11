@@ -18,12 +18,12 @@ export function Hero() {
           </p>
           <div className="animate-rise mt-8 flex flex-wrap gap-3 [animation-delay:180ms]">
             <Button asChild>
-              <Link to="/research">
+              <Link to="/research/">
                 Our Research <ArrowRight aria-hidden="true" />
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to="/members">Members</Link>
+              <Link to="/members/">Members</Link>
             </Button>
           </div>
         </div>
