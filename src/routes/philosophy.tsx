@@ -3,9 +3,14 @@ import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/philosophy")({
-  head: () => ({ meta: staticPageMeta("/philosophy") }),
+  head: () => ({
+    meta: staticPageMeta("/philosophy", {
+      jsonLd: breadcrumbs([{ name: "Philosophy", path: "/philosophy" }]),
+    }),
+  }),
   component: PhilosophyPage,
 });
 

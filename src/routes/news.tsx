@@ -4,9 +4,12 @@ import { PageHeader } from "@/components/site/section";
 import { news, type NewsItem } from "@/data/news";
 import { byDateDesc, formatDate } from "@/lib/format";
 import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/news")({
-  head: () => ({ meta: staticPageMeta("/news") }),
+  head: () => ({
+    meta: staticPageMeta("/news", { jsonLd: breadcrumbs([{ name: "News", path: "/news" }]) }),
+  }),
   component: NewsPage,
 });
 

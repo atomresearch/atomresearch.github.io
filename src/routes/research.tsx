@@ -8,9 +8,14 @@ import { Button } from "@/components/ui/button";
 import { papers, type Paper } from "@/data/papers";
 import { byDateDesc, formatDate } from "@/lib/format";
 import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/research")({
-  head: () => ({ meta: staticPageMeta("/research") }),
+  head: () => ({
+    meta: staticPageMeta("/research", {
+      jsonLd: breadcrumbs([{ name: "Research", path: "/research" }]),
+    }),
+  }),
   component: ResearchPage,
 });
 

@@ -10,9 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import site from "@/data/site.json";
 import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/join")({
-  head: () => ({ meta: staticPageMeta("/join") }),
+  head: () => ({
+    meta: staticPageMeta("/join", { jsonLd: breadcrumbs([{ name: "Join Us", path: "/join" }]) }),
+  }),
   component: JoinPage,
 });
 

@@ -2,33 +2,30 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MemberLinks } from "@/components/site/member-links";
 import { PageHeader } from "@/components/site/section";
 import { members } from "@/data/members";
-import { absoluteUrl, staticPageMeta } from "@/lib/seo";
+import { pageUrl, staticPageMeta } from "@/lib/seo";
+import { breadcrumbs, personLd } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/members/")({
-  head: () => ({ meta: staticPageMeta("/members") }),
+  head: () => ({
+    meta: staticPageMeta("/members", {
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          url: pageUrl("/members"),
+          name: "Members - ATOM",
+          mainEntity: { "@type": "ItemList", itemListElement: members.map(personLd) },
+        },
+        breadcrumbs([{ name: "Members", path: "/members" }]),
+      ],
+    }),
+  }),
   component: MembersPage,
-});
-
-// Structured data, so search engines can index each person.
-const jsonLd = JSON.stringify({
-  "@context": "https://schema.org",
-  "@graph": members.map((m) => ({
-    "@type": "Person",
-    "@id": absoluteUrl(`/members/${m.id}`),
-    name: m.name,
-    jobTitle: m.role,
-    affiliation: m.affiliation,
-    image: absoluteUrl(m.photo),
-    url: absoluteUrl(`/members/${m.id}`),
-    sameAs: [m.links.website, m.links.github, m.links.twitter, m.links.scholar].filter(Boolean),
-    description: m.bio,
-  })),
 });
 
 function MembersPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <PageHeader title="Members">
         <p>The people building ATOM.</p>
       </PageHeader>

@@ -4,10 +4,13 @@ import { PageHeader, Tag } from "@/components/site/section";
 import { posts, type Post } from "@/data/posts";
 import { formatDate } from "@/lib/format";
 import { staticPageMeta } from "@/lib/seo";
+import { breadcrumbs } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/blog/")({
-  head: () => ({ meta: staticPageMeta("/blog") }),
+  head: () => ({
+    meta: staticPageMeta("/blog", { jsonLd: breadcrumbs([{ name: "Blog", path: "/blog" }]) }),
+  }),
   component: BlogIndex,
 });
 

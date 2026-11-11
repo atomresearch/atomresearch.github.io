@@ -10,6 +10,7 @@ import { papers } from "@/data/papers";
 import { posts, type Post } from "@/data/posts";
 import { formatBibtex, formatDate } from "@/lib/format";
 import { pageMeta } from "@/lib/seo";
+import { breadcrumbs, postLd } from "@/lib/structured-data";
 
 // The Markdown and math renderer is by far the largest piece of code on the
 // site. It is loaded separately, so the title and cover of a post appear
@@ -28,8 +29,15 @@ export const Route = createFileRoute("/blog/$slug")({
           description: post.excerpt,
           image: post.cover,
           type: "article",
+          extra: [{ property: "article:published_time", content: post.date }],
+          jsonLd: [
+            postLd(post),
+            breadcrumbs([
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ],
         }),
-        { property: "article:published_time", content: post.date },
       ],
     };
   },

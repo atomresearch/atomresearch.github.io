@@ -2,7 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { MemberLinks } from "@/components/site/member-links";
 import { getMember, type Member } from "@/data/members";
-import { absoluteUrl, pageMeta } from "@/lib/seo";
+import { pageMeta } from "@/lib/seo";
+import { breadcrumbs, profilePageLd } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/members/$id")({
   head: ({ params }) => {
@@ -13,6 +14,13 @@ export const Route = createFileRoute("/members/$id")({
         title: `${member.name} - ATOM`,
         description: `${member.role}, ${member.affiliation}. ${member.bio}`,
         type: "profile",
+        jsonLd: [
+          profilePageLd(member),
+          breadcrumbs([
+            { name: "Members", path: "/members" },
+            { name: member.name, path: `/members/${member.id}` },
+          ]),
+        ],
       }),
     };
   },
@@ -26,28 +34,8 @@ export const Route = createFileRoute("/members/$id")({
 
 function MemberPage() {
   const { member } = Route.useLoaderData() as { member: Member };
-  const url = absoluteUrl(`/members/${member.id}`);
-  const jsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": url,
-    name: member.name,
-    jobTitle: member.role,
-    affiliation: member.affiliation,
-    image: absoluteUrl(member.photo),
-    url,
-    sameAs: [
-      member.links.website,
-      member.links.github,
-      member.links.twitter,
-      member.links.scholar,
-    ].filter(Boolean),
-    description: member.bio,
-  });
-
   return (
     <article className="container-page max-w-4xl pt-10 md:pt-16">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <Link
         to="/members/"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"

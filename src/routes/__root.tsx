@@ -3,9 +3,12 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { ThemeProvider } from "@/components/site/theme-provider";
 import { Button } from "@/components/ui/button";
-import { useDocumentHead } from "@/lib/seo";
+import { jsonLdTags, useDocumentHead } from "@/lib/seo";
+import { siteGraph } from "@/lib/structured-data";
 
 export const Route = createRootRoute({
+  // The group and the website, described on every page for search engines.
+  head: () => ({ meta: jsonLdTags(siteGraph()) }),
   component: RootComponent,
   notFoundComponent: NotFound,
   errorComponent: ErrorScreen,
