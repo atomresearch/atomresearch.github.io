@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Code2, ExternalLink, FileText, MousePointerClick } from "lucide-react";
-import { useState } from "react";
-import { Markdown, type ZoomTarget } from "@/components/site/markdown";
+import { lazy, Suspense, useState } from "react";
+import type { ZoomTarget } from "@/components/site/markdown";
 import { CopyButton } from "@/components/site/paper-parts";
 import { Tag } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,12 @@ import { papers } from "@/data/papers";
 import { posts, type Post } from "@/data/posts";
 import { formatBibtex, formatDate } from "@/lib/format";
 import { pageMeta } from "@/lib/seo";
+
+// The Markdown and math renderer is by far the largest piece of code on the
+// site. It is loaded separately, so the title and cover of a post appear
+// without waiting for it; the loader starts the download as early as possible.
+const loadMarkdown = () => import("@/components/site/markdown");
+const Markdown = lazy(() => loadMarkdown().then((m) => ({ default: m.Markdown })));
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
@@ -30,6 +36,7 @@ export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = posts.find((p) => p.slug === params.slug);
     if (!post) throw notFound();
+    void loadMarkdown();
     return { post };
   },
   notFoundComponent: () => (
@@ -101,12 +108,14 @@ function PostPage() {
 
       {post.cover && (
         <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-border bg-white md:mt-12">
-          <img src={post.cover} alt="" className="block h-auto w-full" />
+          <img src={post.cover} alt="" fetchPriority="high" className="block h-auto w-full" />
         </div>
       )}
 
       <div className="prose-atom mx-auto mt-10 max-w-[44rem] md:mt-14">
-        <Markdown content={post.content} onZoom={setZoom} />
+        <Suspense fallback={<div className="min-h-screen" aria-busy="true" />}>
+          <Markdown content={post.content} onZoom={setZoom} />
+        </Suspense>
       </div>
 
       <footer className="mx-auto mt-16 max-w-[44rem] space-y-8 border-t border-border pt-10">
