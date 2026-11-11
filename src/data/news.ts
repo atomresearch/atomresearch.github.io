@@ -36,6 +36,5 @@ export const news: NewsItem[] = [
     text: "Arxiv Paper:",
     highlight: "Learning POMDP World Models from Observations with Language-Model Priors",
     link: { kind: "external", href: "https://arxiv.org/abs/2605.13740" },
-  }
-
+  },
 ];
