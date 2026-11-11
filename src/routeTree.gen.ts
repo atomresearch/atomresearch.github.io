@@ -9,21 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResearchRouteImport } from './routes/research'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResearchIndexRouteImport } from './routes/research.index'
 import { Route as MembersIndexRouteImport } from './routes/members.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as ResearchIdRouteImport } from './routes/research.$id'
 import { Route as MembersIdRouteImport } from './routes/members.$id'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
-const ResearchRoute = ResearchRouteImport.update({
-  id: '/research',
-  path: '/research',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PhilosophyRoute = PhilosophyRouteImport.update({
   id: '/philosophy',
   path: '/philosophy',
@@ -44,6 +40,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResearchIndexRoute = ResearchIndexRouteImport.update({
+  id: '/research/',
+  path: '/research/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MembersIndexRoute = MembersIndexRouteImport.update({
   id: '/members/',
   path: '/members/',
@@ -52,6 +53,11 @@ const MembersIndexRoute = MembersIndexRouteImport.update({
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchIdRoute = ResearchIdRouteImport.update({
+  id: '/research/$id',
+  path: '/research/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembersIdRoute = MembersIdRouteImport.update({
@@ -70,22 +76,24 @@ export interface FileRoutesByFullPath {
   '/join': typeof JoinRoute
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
   '/blog/': typeof BlogIndexRoute
   '/members/': typeof MembersIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/join': typeof JoinRoute
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
   '/blog': typeof BlogIndexRoute
   '/members': typeof MembersIndexRoute
+  '/research': typeof ResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +101,12 @@ export interface FileRoutesById {
   '/join': typeof JoinRoute
   '/news': typeof NewsRoute
   '/philosophy': typeof PhilosophyRoute
-  '/research': typeof ResearchRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/members/$id': typeof MembersIdRoute
+  '/research/$id': typeof ResearchIdRoute
   '/blog/': typeof BlogIndexRoute
   '/members/': typeof MembersIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,33 +115,36 @@ export interface FileRouteTypes {
     | '/join'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
     | '/blog/'
     | '/members/'
+    | '/research/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/join'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
     | '/blog'
     | '/members'
+    | '/research'
   id:
     | '__root__'
     | '/'
     | '/join'
     | '/news'
     | '/philosophy'
-    | '/research'
     | '/blog/$slug'
     | '/members/$id'
+    | '/research/$id'
     | '/blog/'
     | '/members/'
+    | '/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,22 +152,16 @@ export interface RootRouteChildren {
   JoinRoute: typeof JoinRoute
   NewsRoute: typeof NewsRoute
   PhilosophyRoute: typeof PhilosophyRoute
-  ResearchRoute: typeof ResearchRoute
   BlogSlugRoute: typeof BlogSlugRoute
   MembersIdRoute: typeof MembersIdRoute
+  ResearchIdRoute: typeof ResearchIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
   MembersIndexRoute: typeof MembersIndexRoute
+  ResearchIndexRoute: typeof ResearchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/research': {
-      id: '/research'
-      path: '/research'
-      fullPath: '/research'
-      preLoaderRoute: typeof ResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/philosophy': {
       id: '/philosophy'
       path: '/philosophy'
@@ -184,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/research/': {
+      id: '/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof ResearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/members/': {
       id: '/members/'
       path: '/members'
@@ -196,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/$id': {
+      id: '/research/$id'
+      path: '/research/$id'
+      fullPath: '/research/$id'
+      preLoaderRoute: typeof ResearchIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/members/$id': {
@@ -220,11 +240,12 @@ const rootRouteChildren: RootRouteChildren = {
   JoinRoute: JoinRoute,
   NewsRoute: NewsRoute,
   PhilosophyRoute: PhilosophyRoute,
-  ResearchRoute: ResearchRoute,
   BlogSlugRoute: BlogSlugRoute,
   MembersIdRoute: MembersIdRoute,
+  ResearchIdRoute: ResearchIdRoute,
   BlogIndexRoute: BlogIndexRoute,
   MembersIndexRoute: MembersIndexRoute,
+  ResearchIndexRoute: ResearchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

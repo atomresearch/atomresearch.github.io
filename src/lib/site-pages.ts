@@ -1,6 +1,6 @@
 // Every public page of the site, read from the same data files as the pages
 // themselves. The build-time renderer writes one HTML file per entry and lists
-// them all in sitemap.xml, so a new post or member needs no extra step.
+// them all in sitemap.xml, so a new post, paper or member needs no extra step.
 import site from "@/data/site.json";
 import { members } from "@/data/members";
 import { news } from "@/data/news";
@@ -26,6 +26,7 @@ export function sitePages(): SitePage[] {
   };
   return [
     ...Object.keys(site.pages).map((path) => ({ path, lastmod: dated[path] })),
+    ...papers.map((p) => ({ path: `/research/${p.id}`, lastmod: p.date.slice(0, 10) })),
     ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date.slice(0, 10) })),
     ...members.map((m) => ({ path: `/members/${m.id}` })),
   ];

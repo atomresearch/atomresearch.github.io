@@ -161,7 +161,8 @@ function PostPage() {
               {related.map((paper) => (
                 <li key={paper.id}>
                   <Link
-                    to="/research/"
+                    to="/research/$id/"
+                    params={{ id: paper.id }}
                     className="block h-full rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50"
                   >
                     <span className="font-mono text-xs text-primary">

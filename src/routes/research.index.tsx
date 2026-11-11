@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Authors, Figure, PaperLinks } from "@/components/site/paper-parts";
@@ -7,13 +7,24 @@ import { PageHeader, SectionHeading, Tag } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import { papers, type Paper } from "@/data/papers";
 import { byDateDesc, formatDate } from "@/lib/format";
-import { staticPageMeta } from "@/lib/seo";
+import { pageUrl, staticPageMeta } from "@/lib/seo";
 import { breadcrumbs } from "@/lib/structured-data";
 
-export const Route = createFileRoute("/research")({
+export const Route = createFileRoute("/research/")({
   head: () => ({
     meta: staticPageMeta("/research", {
-      jsonLd: breadcrumbs([{ name: "Research", path: "/research" }]),
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          url: pageUrl("/research"),
+          name: "Research - ATOM",
+          hasPart: sorted.map((paper) => ({
+            "@id": `${pageUrl(`/research/${paper.id}`)}#article`,
+          })),
+        },
+        breadcrumbs([{ name: "Research", path: "/research" }]),
+      ],
     }),
   }),
   component: ResearchPage,
@@ -131,7 +142,15 @@ function Publication({ paper }: { paper: Paper }) {
       </div>
 
       <div className="min-w-0">
-        <h3 className="text-2xl leading-snug md:text-[1.75rem]">{paper.title}</h3>
+        <h3 className="text-2xl leading-snug md:text-[1.75rem]">
+          <Link
+            to="/research/$id/"
+            params={{ id: paper.id }}
+            className="underline-offset-4 decoration-1 hover:underline"
+          >
+            {paper.shortName ? `${paper.shortName}: ${paper.title}` : paper.title}
+          </Link>
+        </h3>
         <Authors paper={paper} className="mt-3" />
         <p className="mt-5 max-w-3xl leading-relaxed text-foreground/85">{paper.abstract}</p>
         <ul className="mt-5 flex flex-wrap gap-2" aria-label="Topics">

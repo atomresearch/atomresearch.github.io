@@ -13,8 +13,9 @@ import mainResults from "@/assets/papers/pinductor/main-results.svg";
 //   results     results figure shown with the paper on the research page
 //   links.blog  slug of the blog post about the paper
 //
-// Authors who are members (by name, or by one of the `aliases` in
-// members.ts) are highlighted.
+// Each paper gets its own page at /research/<id>/. Authors who are members
+// (by name, or by one of the `aliases` in members.ts) are highlighted and
+// linked to their profile.
 export type PaperFigure = {
   light: string;
   dark?: string; // falls back to `light`, shown on a white panel
@@ -51,7 +52,7 @@ export type Paper = {
 
 export const papers: Paper[] = [
   {
-    id: "atom-2025",
+    id: "pinductor",
     title: "Learning POMDP World Models from Observations with Language-Model Priors",
     shortName: "Pinductor",
     featured: true,

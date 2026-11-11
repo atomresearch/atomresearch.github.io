@@ -15,16 +15,32 @@ import type { Paper, PaperFigure } from "@/data/papers";
 import { formatBibtex } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
-/** Author list with the group's own members emphasised. */
+/**
+ * Author list. The group's own members are emphasised and link to their
+ * profile, so a paper and its authors' pages point to each other.
+ */
 export function Authors({ paper, className }: { paper: Paper; className?: string }) {
   return (
     <p className={cn("text-sm text-muted-foreground", className)}>
-      {paper.authors.map((author, i) => (
-        <span key={author}>
-          <span className={memberByName(author) ? "text-foreground" : undefined}>{author}</span>
-          {i < paper.authors.length - 1 && ", "}
-        </span>
-      ))}
+      {paper.authors.map((author, i) => {
+        const member = memberByName(author);
+        return (
+          <span key={author}>
+            {member ? (
+              <Link
+                to="/members/$id/"
+                params={{ id: member.id }}
+                className="text-foreground underline-offset-4 hover:underline"
+              >
+                {author}
+              </Link>
+            ) : (
+              author
+            )}
+            {i < paper.authors.length - 1 && ", "}
+          </span>
+        );
+      })}
     </p>
   );
 }

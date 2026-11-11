@@ -1,8 +1,9 @@
-// schema.org descriptions of the group, its people and posts, added
+// schema.org descriptions of the group, its people, papers and posts, added
 // to each page's head as JSON-LD. Search engines use them for rich results
-// and to connect a person to the group.
+// and to connect a paper to its authors and a person to the group.
 import site from "@/data/site.json";
-import type { Member } from "@/data/members";
+import { memberByName, type Member } from "@/data/members";
+import type { Paper } from "@/data/papers";
 import type { Post } from "@/data/posts";
 import { absoluteUrl, pageUrl, siteUrl } from "@/lib/seo";
 
@@ -85,6 +86,32 @@ export function profilePageLd(member: Member) {
     "@type": "ProfilePage",
     url: pageUrl(`/members/${member.id}`),
     mainEntity: personLd(member),
+  };
+}
+
+export function paperLd(paper: Paper) {
+  const url = pageUrl(`/research/${paper.id}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": `${url}#article`,
+    url,
+    headline: paper.title,
+    name: paper.shortName ? `${paper.shortName}: ${paper.title}` : paper.title,
+    alternativeHeadline: paper.shortName,
+    abstract: paper.abstract,
+    datePublished: paper.date,
+    inLanguage: "en",
+    keywords: paper.tags.join(", "),
+    author: paper.authors.map((name) => {
+      const member = memberByName(name);
+      return member
+        ? { "@type": "Person", "@id": personId(member), name }
+        : { "@type": "Person", name };
+    }),
+    publisher: { "@id": ORGANIZATION_ID },
+    publication: { "@type": "PublicationEvent", name: `${paper.venue} ${paper.year}` },
+    sameAs: [paper.links.arxiv, paper.links.pdf].filter(Boolean),
   };
 }
 

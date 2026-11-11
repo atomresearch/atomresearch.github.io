@@ -26,7 +26,7 @@ export function llmsTxt() {
         p.links.arxiv && `[arXiv](${p.links.arxiv})`,
         p.links.code && `[code](${p.links.code})`,
       ];
-      return `- ${name} (${p.venue} ${p.year}; ${extra.filter(Boolean).join(", ")}): ${p.summary ?? p.abstract}`;
+      return `- [${name}](${pageUrl(`/research/${p.id}`)}) (${p.venue} ${p.year}; ${extra.filter(Boolean).join(", ")}): ${p.summary ?? p.abstract}`;
     }),
     "",
     "## Blog",

@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Authors, Figure, PaperLinks } from "@/components/site/paper-parts";
 import { papers } from "@/data/papers";
 import { byDateDesc } from "@/lib/format";
@@ -26,7 +27,13 @@ export function FeaturedPublication() {
             id="featured-publication"
             className="mt-3 text-2xl leading-snug text-foreground/80 md:text-[1.7rem]"
           >
-            {paper.title}
+            <Link
+              to="/research/$id/"
+              params={{ id: paper.id }}
+              className="underline-offset-4 decoration-1 hover:text-foreground hover:underline"
+            >
+              {paper.title}
+            </Link>
           </h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">
             {paper.summary ?? paper.abstract}

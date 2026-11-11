@@ -14,7 +14,7 @@ arxiv: "https://arxiv.org/pdf/2605.13740"
 github: "https://github.com/atomresearch/pinductor"
 explainer: "https://mtsfj.github.io/articles/pinductor.html"
 relatedPaperIds:
-  - 
+  - "pinductor"
 bibtex: |
   @misc{six2026learningpomdpworldmodels,
         title={Learning POMDP World Models from Observations with Language-Model Priors}, 
