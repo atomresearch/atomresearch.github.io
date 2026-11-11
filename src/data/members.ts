@@ -1,4 +1,4 @@
-// Replace with your real members. Photo can be any URL or imported asset.
+// Group members, in the order they are listed on the members page.
 export type Member = {
   id: string;
   name: string;
@@ -35,7 +35,7 @@ const membersRaw: Member[] = [
     },
     group: "members",
   },
-    {
+  {
     id: "fpanse",
     name: "Frederik Panse",
     role: "Research Intern",
@@ -64,7 +64,7 @@ const membersRaw: Member[] = [
     group: "members",
   },
 
-    {
+  {
     id: "ldc",
     name: "Lancelot Da Costa",
     role: "Postdoc | Principal Investigator",
@@ -80,7 +80,7 @@ const membersRaw: Member[] = [
     },
     group: "members",
   },
-    {
+  {
     id: "msharma",
     name: "Mridul Sharma",
     role: "Research Collaborator",
@@ -94,7 +94,7 @@ const membersRaw: Member[] = [
     },
     group: "members",
   },
-    {
+  {
     id: "aamayuelas",
     name: "Alfonso Amayuelas",
     role: "PhD Candidate",
@@ -122,7 +122,7 @@ const membersRaw: Member[] = [
     },
     group: "members",
   },
-    {
+  {
     id: "dhyland",
     name: "David Hyland",
     role: "Postdoc",
@@ -138,24 +138,25 @@ const membersRaw: Member[] = [
   },
 ];
 
-// Load local member images (optional). Put images in `src/assets/members` named by member id,
-// e.g. `ldc.png`, `vsix.jpg`, `mfajeau.svg`, etc. Vite will bundle these and expose URLs.
-// Use import.meta.glob with eager + query:'?url' so it works in both dev, build and SSR.
-const _images = import.meta.glob("../assets/members/*.{png,jpg,jpeg,svg}", {
+// Portraits live in `src/assets/members`, named after the member id
+// (`ldc.webp`, `vsix.jpg`, ...). They are shown at 80 to 192 px, so a square
+// image of about 400 px is plenty: larger files only slow the page down.
+const images = import.meta.glob("../assets/members/*.{webp,avif,png,jpg,jpeg,svg}", {
   eager: true,
   query: "?url",
   import: "default",
 }) as Record<string, string>;
 
 const imageMap = Object.fromEntries(
-  Object.entries(_images).map(([path, url]) => {
+  Object.entries(images).map(([path, url]) => {
     const file = path.split("/").pop()!;
-    const name = file.substring(0, file.lastIndexOf("."));
-    return [name, url];
+    return [file.substring(0, file.lastIndexOf(".")), url];
   }),
-) as Record<string, string>;
+);
 
 export const members: Member[] = membersRaw.map((m) => ({
   ...m,
   photo: imageMap[m.id] ?? m.photo,
 }));
+
+export const getMember = (id: string) => members.find((m) => m.id === id);
