@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <style>
-    .ink { stroke: #1a1d2b; }
-    .dot { fill: #1a1d2b; }
-    @media (prefers-color-scheme: dark) {
-      .ink { stroke: #f1efeb; }
-      .dot { fill: #f1efeb; }
-    }
-  </style>
-  <g class="ink" stroke-width="1.6">
-    <ellipse cx="16" cy="16" rx="13.2" ry="5.1"/>
-    <ellipse cx="16" cy="16" rx="13.2" ry="5.1" transform="rotate(60 16 16)"/>
-    <ellipse cx="16" cy="16" rx="13.2" ry="5.1" transform="rotate(120 16 16)"/>
-  </g>
-  <circle class="dot" cx="16" cy="16" r="2.6"/>
-  <circle cx="22.6" cy="4.57" r="2.3" fill="#e8772e"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 120 120" width="512" height="512" xmlns:c2pa="http://c2pa.org/manifest"> <rect x="-60" y="-60" width="120" height="120" fill="#000000"/><path d="M11.89 -42.21 A43.85 43.85 0 1 0 43.22 -7.41" fill="none" stroke="#FFFFFF" stroke-width="12.3" stroke-linecap="round"/><circle cx="32.59" cy="-29.34" r="13.22" fill="#FFFFFF"/></svg>

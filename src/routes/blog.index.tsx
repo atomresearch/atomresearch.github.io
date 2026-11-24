@@ -20,7 +20,7 @@ function BlogIndex() {
   return (
     <>
       <PageHeader title="Blog">
-        <p>Research updates, paper walk-throughs, and demos from the ATOM Research Group.</p>
+        <p>Research updates, paper walk-throughs, and demos from ATOM Research.</p>
       </PageHeader>
 
       <div className="container-page">

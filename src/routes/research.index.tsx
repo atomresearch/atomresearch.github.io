@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Authors, Figure, PaperLinks } from "@/components/site/paper-parts";
-import { ResearchThemes } from "@/components/site/research-themes";
 import { PageHeader, SectionHeading, Tag } from "@/components/site/section";
 import { Button } from "@/components/ui/button";
 import { papers, type Paper } from "@/data/papers";
@@ -30,14 +29,6 @@ export const Route = createFileRoute("/research/")({
   component: ResearchPage,
 });
 
-const keywords = [
-  "Active model discovery",
-  "Probabilistic program induction",
-  "Structure learning",
-  "Causal representation learning",
-  "Model-based reinforcement learning",
-  "Variational inference",
-];
 
 const PAGE_SIZE = 10;
 const sorted = [...papers].sort(byDateDesc);
@@ -51,34 +42,11 @@ function ResearchPage() {
     <>
       <PageHeader title="Research">
         <p>
-          Our agenda is to develop an{" "}
-          <strong className="font-medium text-foreground">Agent Foundation Model</strong> - a
-          generalist AI that learns to understand novel environments through active exploration,
-          hypothesis formation, and self-directed experimentation. We bring together probabilistic
-          modelling, causal inference, program induction, and reinforcement learning to chase that
-          vision.
+          ATOM pursues one question: how can an agent come to understand a naturalistic world with
+          as few resources as possible, in energy, compute, interaction and time? These are our
+          papers so far.
         </p>
-        <ul className="mt-7 flex flex-wrap gap-2" aria-label="Research keywords">
-          {keywords.map((keyword) => (
-            <li key={keyword} className="flex">
-              <Tag>{keyword}</Tag>
-            </li>
-          ))}
-        </ul>
       </PageHeader>
-
-      <section aria-labelledby="themes" className="border-y border-border bg-surface">
-        <div className="container-page py-14 md:py-20">
-          <SectionHeading
-            id="themes"
-            title="Core research themes"
-            lead="Three pillars guiding our experimental agenda."
-          />
-          <div className="mt-10">
-            <ResearchThemes />
-          </div>
-        </div>
-      </section>
 
       <section aria-labelledby="publications" className="container-page pt-14 md:pt-20">
         <SectionHeading

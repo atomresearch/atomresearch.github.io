@@ -68,8 +68,8 @@ const membersRaw: Member[] = [
   {
     id: "ldc",
     name: "Lancelot Da Costa",
-    role: "Postdoc | Principal Investigator",
-    affiliation: "ATOM Research Group · MPI-IS",
+    role: "Lead, ATOM Research",
+    affiliation: "Postdoc, Empirical Inference, MPI-IS",
     bio: "Bayesian machine learning, world models, and active inference. Previously at ICL and VERSES.",
     photo: placeholder("ldc"),
     links: {

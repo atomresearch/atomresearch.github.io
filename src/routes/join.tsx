@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Briefcase, GraduationCap, Mail, Plane } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { PageHeader } from "@/components/site/section";
 import {
   Accordion,
@@ -21,58 +21,116 @@ export const Route = createFileRoute("/join")({
 
 const EMAIL = site.email;
 
+const PROJECTS = [
+  {
+    title: "Principled hierarchies",
+    tag: "Universal world modeling",
+    desc: "How should agents learn abstract, hierarchical models of their world? This project connects hierarchical reinforcement learning, causal models, multiscale physics and hierarchical active inference, in theory and in practice.",
+  },
+  {
+    title: "Natural building blocks in practice",
+    tag: "Universal world modeling",
+    desc: "Develop learnable world-model building blocks that work on their own and combine into hierarchical active inference agents.",
+  },
+  {
+    title: "LLM-driven structure learning",
+    tag: "Model discovery",
+    desc: "Use large language models to propose and refine the structure of world models for active inference agents, keeping an interpretable trace of every change. An existing pipeline shows promising first results, and many scientific questions remain open.",
+  },
+  {
+    title: "Benchmarking ATOM agents",
+    tag: "Evaluation",
+    desc: "What are agents that learn like we do good at, and how should we measure it? Review existing reinforcement learning and world modeling benchmarks, learn about how children learn, and design new evaluations.",
+  },
+];
+
+const FAQ = [
+  {
+    q: "How does ATOM work?",
+    a: "We work in projects. Each project has a lead and a small team, answers one part of our question, and aims at a paper and code. We keep the group small and the bar high: scientific rigour comes first.",
+  },
+  {
+    q: "Is this remote or in person?",
+    a: "Remote by default. Hosting in person in Tübingen is occasionally possible, depending on capacity and timing.",
+  },
+  {
+    q: "Is this paid?",
+    a: "Unpaid by default. Paid positions are occasionally possible, depending on funding, capacity and timing.",
+  },
+  {
+    q: "Can I do my master's thesis on one of these projects?",
+    a: "Yes, when a project is recruiting: say so in your application. ETH and Tübingen students can be co-supervised in Tübingen.",
+  },
+];
+
+function mail(subject: string) {
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`;
+}
+
 function JoinPage() {
   return (
     <>
-      <PageHeader title="Collaborate 🤝">
+      <PageHeader title="Join us">
         <p>
-          We are always looking for potential collaborators. If this is you, please drop us a quick
-          note by email with the subject{" "}
-          <span className="font-mono text-base text-foreground">[Collaboration] XXX</span>.
+          ATOM is a select group of researchers. We work in projects, each answering one part of
+          our question. Applications to our open projects are on hold for now and reopen soon:
+          follow{" "}
+          <a href={site.twitter} className="text-foreground underline underline-offset-4">
+            @atomresearchlab
+          </a>{" "}
+          to hear first about new opportunities. Proposals to lead or supervise a project are open
+          now (below).
         </p>
-        <Button asChild className="mt-8 max-w-full">
-          <a href={`mailto:${EMAIL}?subject=${encodeURIComponent("[Collaboration] ")}`}>
-            <Mail aria-hidden="true" />
-            <span className="truncate">{EMAIL}</span>
-            <ArrowRight aria-hidden="true" />
-          </a>
-        </Button>
       </PageHeader>
 
-      <section className="container-page">
-        <div className="grid gap-5 md:grid-cols-3">
-          <Card
-            icon={GraduationCap}
-            title="PhD students"
-            body="We welcome strong candidates with a background in ML, statistics, computer science, or cognitive science."
-          />
-          <Card
-            icon={Plane}
-            title="Visiting researchers"
-            body="Spend 6-12 months with us. Best fit if you have an active research agenda overlapping universal modelling, model discovery, or active learning."
-          />
-          <Card
-            icon={Briefcase}
-            title="Internships"
-            body="Summer and rolling internship slots for masters. Past interns have led first-author publications. Send a CV and 2 paragraphs on a research question you'd love to attack."
-          />
-        </div>
+      <section className="container-page" aria-labelledby="projects">
+        <h2 id="projects" className="text-3xl tracking-[-0.02em]">
+          Open projects
+        </h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+          These are open projects within ATOM, for students and researchers who want to join. All
+          projects are remote by default.
+        </p>
+        <ul className="mt-8 grid gap-5 md:grid-cols-2">
+          {PROJECTS.map((p) => (
+            <li key={p.title} className="rounded-2xl border border-border bg-card p-7">
+              <div className="flex flex-wrap gap-2">
+                {[p.tag, "Applications on hold", "Remote"].map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <h3 className="mt-4 text-2xl">{p.title}</h3>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                {p.desc}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-        <div className="mt-14 border-t border-border-strong pt-10">
-          <h2 className="text-3xl tracking-[-0.02em]">What working with us looks like</h2>
-          <ul className="mt-6 grid gap-x-10 gap-y-4 text-muted-foreground md:grid-cols-2">
-            {[
-              "Tight, ambitious projects with weekly discussions.",
-              "Generous engineering support & guidance.",
-              "Open-source by default; we publish code and reproducible artifacts.",
-              "A culture that values clarity, rigor, and curiosity in equal measure.",
-            ].map((item) => (
-              <li key={item} className="flex gap-3">
-                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
+      <section className="container-page mt-16 md:mt-24" aria-labelledby="propose">
+        <div className="rounded-2xl border border-border bg-card p-7 md:p-10">
+          <p className="eyebrow">Lead or supervise a project</p>
+          <h2 id="propose" className="mt-3 text-3xl tracking-[-0.02em]">
+            Have a project that answers part of our question?
+          </h2>
+          <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+            Open now. Researchers who want to lead or supervise a project, and students with a project
+            of their own, are welcome to get in touch with a CV and a short description of the
+            project.
+          </p>
+          <Button asChild className="mt-6 max-w-full">
+            <a href={mail("[Project proposal] Your name")}>
+              <Mail aria-hidden="true" />
+              <span className="truncate">Propose a project</span>
+              <ArrowRight aria-hidden="true" />
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -80,122 +138,29 @@ function JoinPage() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
           <div>
             <p className="eyebrow">Frequently asked questions</p>
-            <h2 className="mt-3 text-3xl tracking-[-0.02em]">Student researcher applications</h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              If you want to collaborate or apply as a student researcher, these are the main
-              details.
-            </p>
+            <h2 className="mt-3 text-3xl tracking-[-0.02em]">How it works</h2>
           </div>
-
           <Accordion type="single" collapsible className="w-full border-t border-border">
-            <AccordionItem value="collaborate">
-              <AccordionTrigger>How do I apply to collaborate?</AccordionTrigger>
+            {FAQ.map((f) => (
+              <AccordionItem key={f.q} value={f.q}>
+                <AccordionTrigger>{f.q}</AccordionTrigger>
+                <AccordionContent>{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+            <AccordionItem value="other">
+              <AccordionTrigger>Any other question?</AccordionTrigger>
               <AccordionContent>
-                I am always looking for potential collaborators. If this is you, please drop me a
-                quick note by email with the subject{" "}
-                <span className="font-mono text-foreground">[Collaboration] XXX</span>.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="who-can-apply">
-              <AccordionTrigger>Who can apply as a student researcher?</AccordionTrigger>
-              <AccordionContent>
-                I welcome applications from all students who can devote 9 months to 2 years working
-                with me. You can be of any career stage, from anywhere on Earth. I particularly
-                encourage applications from diverse backgrounds.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="application-materials">
-              <AccordionTrigger>What should I include in my application?</AccordionTrigger>
-              <AccordionContent>
-                Please send me a CV and a link or attachment to the proudest thing you have built,
-                worked on, or accomplished. Optionally, you can briefly describe what you would like
-                to work on with me.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="motivation">
-              <AccordionTrigger>Should I include anything else about myself?</AccordionTrigger>
-              <AccordionContent>
-                Yes. I also encourage you to include a few sentences about what drives you, meaning
-                what you deeply care about independently of what I research. Feel free to include
-                anything else about you that you would like me to know.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="process">
-              <AccordionTrigger>What happens after I get in touch?</AccordionTrigger>
-              <AccordionContent>
-                Depending on the potential fit, you may be invited to an interview. The goal is to
-                determine how our interests, motivations, and personalities align, and whether we
-                would both enjoy working together. Prior to getting in touch, please read our
-                research program.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="expectations">
-              <AccordionTrigger>What can I expect from the experience?</AccordionTrigger>
-              <AccordionContent>
-                Expected outputs include at least one publication in a top-tier scientific
-                conference or journal, hands-on research experience in a frontier topic within
-                artificial intelligence, computational cognitive science, applied mathematics,
-                mathematical physics, or related fields, and a recommendation letter from me upon
-                request.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="paid-position">
-              <AccordionTrigger>Is this a paid position?</AccordionTrigger>
-              <AccordionContent>
-                This is an unpaid position. If you are looking for supervision via a paid position,
-                this may potentially be possible through the EI Department at the Max-Planck
-                Institute for Intelligent Systems mentioning my name in your application, or by
-                applying to a dedicated grant with my support. In this case, please contact me
-                first.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="master-thesis">
-              <AccordionTrigger>
-                Can ETH/Tübingen master students do a thesis with you?
-              </AccordionTrigger>
-              <AccordionContent>
-                Yes. ETH/Tübingen master students can do their MSc thesis under my supervision and
-                that of Bernhard Schölkopf. If you are interested, register your interest via the EI
-                Department at the Max-Planck Institute for Intelligent Systems mentioning my name in
-                your application. Spread the word.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="other-questions">
-              <AccordionTrigger>What if I have another question?</AccordionTrigger>
-              <AccordionContent>
-                Drop me a quick note by email with the subject{" "}
-                <span className="font-mono text-foreground">[Supervision Question] XXX</span>.
+                Email{" "}
+                <a href={mail("[Question] ")} className="text-foreground underline underline-offset-4">
+                  {EMAIL}
+                </a>{" "}
+                with the subject{" "}
+                <span className="font-mono text-foreground">[Question] XXX</span>.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
       </section>
     </>
-  );
-}
-
-function Card({
-  icon: Icon,
-  title,
-  body,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-border bg-card p-7">
-      <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
-      <h3 className="mt-5 text-2xl">{title}</h3>
-      <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">{body}</p>
-    </div>
   );
 }

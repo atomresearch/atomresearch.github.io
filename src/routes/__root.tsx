@@ -1,5 +1,6 @@
 import { Link, Outlet, createRootRoute, useRouter } from "@tanstack/react-router";
 import { Footer } from "@/components/site/footer";
+// import { Newsletter } from "@/components/site/newsletter";
 import { Header } from "@/components/site/header";
 import { ThemeProvider } from "@/components/site/theme-provider";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ function RootComponent() {
         <main id="main" className="flex-1">
           <Outlet />
         </main>
+        {/* <Newsletter /> hidden until the Kit newsletter is set up */}
         <Footer />
       </div>
     </ThemeProvider>

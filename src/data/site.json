@@ -1,41 +1,38 @@
 {
-  "name": "ATOM Research Group",
+  "name": "ATOM Research",
   "shortName": "ATOM",
-  "url": "https://atomresearch.github.io",
-  "tagline": "Toward an Agent Foundation Model",
-  "description": "ATOM is an academic AI research group building general-purpose learning and reasoning agents that actively explore and discover world models.",
+  "url": "https://atomresearch.ai",
+  "tagline": "Build a machine that learns like we do",
+  "description": "ATOM Research is a select group of researchers building machines that learn like we do.",
   "ogImage": "/og.jpg",
   "email": "lancelot.dacosta@gmail.com",
   "github": "https://github.com/atomresearch",
-  "twitter": "https://x.com/lancelotdacosta",
+  "twitter": "https://x.com/atomresearchlab",
   "pages": {
     "/": {
-      "title": "ATOM - Toward an Agent Foundation Model",
-      "description": "Building general-purpose learning and reasoning agents that actively explore, build explanatory world models, and run their own experiments."
+      "title": "ATOM Research - Build a machine that learns like we do",
+      "description": "ATOM Research is a select group of researchers pursuing one question: how can an agent come to understand a naturalistic world with as few resources as possible?"
     },
     "/research": {
       "title": "Research - ATOM",
-      "description": "Publications and research themes from the ATOM Research Group: universal modelling, model discovery, and active learning."
+      "description": "Publications from ATOM Research."
     },
     "/blog": {
       "title": "Blog - ATOM",
-      "description": "Research updates, paper explanations, and demos from the ATOM Research Group."
+      "description": "Research updates, paper explanations, and demos from ATOM Research."
     },
     "/members": {
       "title": "Members - ATOM",
-      "description": "The people behind ATOM: faculty, postdocs, students, and researchers."
+      "description": "The people behind ATOM Research."
     },
     "/news": {
       "title": "News - ATOM",
-      "description": "All news, updates, talks, and paper announcements from the ATOM Research Group."
+      "description": "All news, updates, talks, and paper announcements from ATOM Research."
     },
     "/join": {
       "title": "Join Us - ATOM",
-      "description": "Collaborate with ATOM. We're open to new collaborators, visiting researchers, and interns."
-    },
-    "/philosophy": {
-      "title": "Philosophy - ATOM",
-      "description": "Philosophical reflections and essays from the ATOM Research Group."
+      "description": "Current ATOM projects, and how to propose or lead one."
     }
-  }
+  },
+  "newsletter": ""
 }

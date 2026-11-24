@@ -12,14 +12,14 @@ const CONNECT = [
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-surface md:mt-32">
+    <footer className="border-t border-border bg-surface">
       <div className="container-page grid gap-10 py-12 md:grid-cols-[2fr_1fr_1fr] md:py-16">
         <div>
           <Link to="/" className="inline-block rounded-md">
-            <AtomWordmark />
+            <AtomWordmark gap="var(--surface)" />
           </Link>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Toward an Agent Foundation Model - building agents that explore, model, and discover.
+            Build a machine that learns like we do.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export function Footer() {
 
       <div className="border-t border-border">
         <div className="container-page flex flex-wrap justify-between gap-2 py-5 text-xs text-muted-foreground">
-          <span>© {__BUILD_YEAR__} ATOM Research Group. All rights reserved.</span>
+          <span>© {__BUILD_YEAR__} ATOM Research. All rights reserved.</span>
           <span>Crafted for open science.</span>
         </div>
       </div>

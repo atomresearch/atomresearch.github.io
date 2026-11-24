@@ -20,6 +20,12 @@ export function getNewsLink(item: NewsItem): NewsLink | null {
 
 export const news: NewsItem[] = [
   {
+    date: "2026-10-20",
+    text: "New blog post:",
+    highlight: "Limitations of RGMs as Hierarchical Planning Models",
+    link: { kind: "blog", slug: "rgm-hierarchical-planning" },
+  },
+  {
     date: "2026-09-25",
     text: "NeurIPS: ",
     highlight: "Pinductor accepted at NeurIPS main conference",

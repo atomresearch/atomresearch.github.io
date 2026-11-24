@@ -11,6 +11,7 @@ export const NAV = [
   { to: "/news/", label: "News" },
   { to: "/blog/", label: "Blog" },
   { to: "/members/", label: "Members" },
+  { to: "/join/", label: "Join us" },
 ] as const;
 
 export function Header() {

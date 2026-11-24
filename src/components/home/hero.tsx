@@ -8,13 +8,14 @@ export function Hero() {
     <section className="border-b border-border">
       <div className="container-page grid gap-10 pt-10 pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:items-center lg:gap-16 lg:pt-20 lg:pb-24">
         <div>
-          <p className="eyebrow animate-rise">ATOM Research Group</p>
+          <p className="eyebrow animate-rise">ATOM Research</p>
           <h1 className="animate-rise mt-5 text-[2.9rem] leading-[1] tracking-[-0.03em] [animation-delay:60ms] sm:text-6xl lg:text-[4.5rem]">
-            Toward an Agent Foundation Model
+            Build a machine that learns like we do.
           </h1>
           <p className="animate-rise mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground [animation-delay:120ms] md:text-xl md:leading-relaxed">
-            Building principled, experimental agents that model, question, and probe complex systems
-            - with a focus on scalability, robustness, trustworthiness and data-efficiency.
+            ATOM is a select group of researchers pursuing one question: how can an agent come to
+            understand a naturalistic world with as few resources as possible, in energy, compute,
+            interaction and time?
           </p>
           <div className="animate-rise mt-8 flex flex-wrap gap-3 [animation-delay:180ms]">
             <Button asChild>
@@ -23,7 +24,7 @@ export function Hero() {
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to="/members/">Members</Link>
+              <Link to="/join/">Join us</Link>
             </Button>
           </div>
         </div>

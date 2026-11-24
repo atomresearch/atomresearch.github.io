@@ -4,7 +4,6 @@ import site from "@/data/site.json";
 import { members } from "@/data/members";
 import { papers } from "@/data/papers";
 import { posts } from "@/data/posts";
-import { themes } from "@/data/themes";
 import { byDateDesc } from "@/lib/format";
 import { pageUrl } from "@/lib/seo";
 
@@ -13,10 +12,6 @@ export function llmsTxt() {
     `# ${site.name}`,
     "",
     `> ${site.tagline}. ${site.description}`,
-    "",
-    "## Research themes",
-    "",
-    ...themes.map((t) => `- ${t.title}: ${t.desc}`),
     "",
     "## Publications",
     "",
