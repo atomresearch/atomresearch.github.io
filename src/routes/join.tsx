@@ -73,13 +73,11 @@ function JoinPage() {
       <PageHeader title="Join us">
         <p>
           ATOM is a select group of researchers. We work in projects, each answering one part of
-          our question. Applications to our open projects are on hold for now and reopen soon:
-          follow{" "}
+          our question. Follow{" "}
           <a href={site.twitter} className="text-foreground underline underline-offset-4">
             @atomresearchlab
           </a>{" "}
-          to hear first about new opportunities. Proposals to lead or supervise a project are open
-          now (below).
+          to hear first about new opportunities.
         </p>
       </PageHeader>
 
@@ -127,7 +125,7 @@ function JoinPage() {
           <Button asChild className="mt-6 max-w-full">
             <a href={mail("[Project proposal] Your name")}>
               <Mail aria-hidden="true" />
-              <span className="truncate">Propose a project</span>
+              <span className="truncate">Propose a project: {EMAIL}</span>
               <ArrowRight aria-hidden="true" />
             </a>
           </Button>

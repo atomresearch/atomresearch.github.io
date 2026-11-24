@@ -42,9 +42,8 @@ function ResearchPage() {
     <>
       <PageHeader title="Research">
         <p>
-          ATOM pursues one question: how can an agent come to understand a naturalistic world with
-          as few resources as possible, in energy, compute, interaction and time? These are our
-          papers so far.
+          ATOM pursues one question: how can an agent discover how a new world works from as little as
+          possible? These are our papers so far.
         </p>
       </PageHeader>
 

@@ -30,7 +30,7 @@ export function Authors({ paper, className }: { paper: Paper; className?: string
               <Link
                 to="/members/$id/"
                 params={{ id: member.id }}
-                className="text-foreground underline-offset-4 hover:underline"
+                className="underline-offset-4 hover:underline"
               >
                 {author}
               </Link>

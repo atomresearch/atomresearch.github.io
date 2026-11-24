@@ -32,7 +32,6 @@ const membersRaw: Member[] = [
       website: "https://valentinsix.github.io/",
       scholar: "https://scholar.google.com/citations?user=bDJt-yIAAAAJ",
       github: "https://github.com/valentinsix",
-      email: "six.valentin@gmail.com",
     },
     group: "members",
   },
@@ -46,7 +45,6 @@ const membersRaw: Member[] = [
     links: {
       website: "https://www.linkedin.com/in/frederik-panse-199a42262/",
       github: "https://github.com/frederikpanse",
-      email: "frederik.panse@gmail.com",
     },
     group: "members",
   },
@@ -60,7 +58,6 @@ const membersRaw: Member[] = [
     links: {
       website: "https://mtsfj.github.io/",
       github: "https://github.com/mtsfj",
-      email: "mathis.fajeau@inria.fr",
     },
     group: "members",
   },
@@ -77,7 +74,6 @@ const membersRaw: Member[] = [
       scholar: "https://scholar.google.com/citations?user=PCHqHCsAAAAJ&hl=en",
       twitter: "https://x.com/lancelotdacosta",
       github: "https://github.com/lancelotdacosta",
-      email: "lancelot.dacosta@gmail.com",
     },
     group: "members",
   },
@@ -91,7 +87,6 @@ const membersRaw: Member[] = [
     links: {
       website: "https://mridul3301.github.io/",
       scholar: "https://scholar.google.com/citations?user=TSC8VqkAAAAJ&hl=en",
-      email: "mridulsharma3301@gmail.com",
     },
     group: "members",
   },
@@ -105,7 +100,6 @@ const membersRaw: Member[] = [
     links: {
       website: "https://www.amayuelas.me/",
       scholar: "https://scholar.google.com/citations?user=QGQ2G28AAAAJ&hl=en",
-      email: "amayuelas@ucsb.edu",
     },
     group: "members",
   },
@@ -120,8 +114,17 @@ const membersRaw: Member[] = [
     links: {
       website: "http://timx.me",
       scholar: "https://scholar.google.com/citations?user=4I7boHIAAAAJ&hl=en",
-      email: "xiaozhenzhong0708@gmail.com",
     },
+    group: "members",
+  },
+  {
+    id: "apashea",
+    name: "Andrew Pashea",
+    role: "Research Engineer",
+    affiliation: "Active Inference Institute",
+    bio: "Active inference and hierarchical world models.",
+    photo: placeholder("apashea"),
+    links: {},
     group: "members",
   },
   {
@@ -134,7 +137,6 @@ const membersRaw: Member[] = [
     links: {
       website: "https://www.cs.ox.ac.uk/people/david.hyland/",
       scholar: "https://scholar.google.com/citations?user=izVwRKkAAAAJ&hl=en",
-      email: "davidh7057@gmail.com",
     },
     group: "members",
   },

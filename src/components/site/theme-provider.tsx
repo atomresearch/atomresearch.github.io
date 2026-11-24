@@ -32,20 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[theme]);
   }, [theme]);
 
-  // Follow the system setting until the visitor makes an explicit choice.
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (event: MediaQueryListEvent) => {
-      try {
-        if (localStorage.getItem(STORAGE_KEY)) return;
-      } catch {
-        // Storage unavailable: keep following the system.
-      }
-      setTheme(event.matches ? "dark" : "light");
-    };
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
+  // Dark by default (24 Nov 2026): the system setting is not followed; only the toggle changes it.
 
   const toggle = useCallback(() => {
     setTheme((prev) => {

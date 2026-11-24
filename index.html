@@ -37,20 +37,20 @@
       href="/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2"
     />
 
-    <meta name="theme-color" content="#fbfaf8" />
-    <link rel="icon" href="/favicon.ico?v=2" sizes="32x32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0f1118" />
+    <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
   </head>
   <body>
-    <!-- Apply the saved or system theme before first paint, to avoid a flash. -->
+    <!-- Apply the saved theme (dark by default) before first paint, to avoid a flash. -->
     <script>
       (function () {
-        var dark = false;
+        var dark = true;
         try {
           var saved = localStorage.getItem("atom-theme");
-          dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+          dark = saved ? saved === "dark" : true;
         } catch (e) {}
         document.documentElement.classList.toggle("dark", dark);
       })();

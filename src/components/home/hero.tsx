@@ -13,9 +13,8 @@ export function Hero() {
             Build a machine that learns like we do.
           </h1>
           <p className="animate-rise mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground [animation-delay:120ms] md:text-xl md:leading-relaxed">
-            ATOM is a select group of researchers pursuing one question: how can an agent come to
-            understand a naturalistic world with as few resources as possible, in energy, compute,
-            interaction and time?
+            ATOM is a select group of researchers pursuing one question: how can an agent discover
+            how a new world works from as little as possible?
           </p>
           <div className="animate-rise mt-8 flex flex-wrap gap-3 [animation-delay:180ms]">
             <Button asChild>
