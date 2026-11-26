@@ -47,7 +47,7 @@ const PROJECTS = [
 const FAQ = [
   {
     q: "How does ATOM work?",
-    a: "We work in projects. Each project has a lead and a small team, answers one part of our question, and aims at a paper and code. We keep the group small and the bar high: scientific rigour comes first.",
+    a: "We work in projects. Each project has a lead and a small team, answers one part of our question, and aims at a paper and code. New members start with a one-month trial, after which they are listed on the Members page. Everyone can join two ATOM-wide meetings a week: a Deep Dive into one project's work, and a Roundtable. We keep the group small and the bar high: scientific rigour comes first.",
   },
   {
     q: "Is this remote or in person?",

@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { moreLinkClass } from "@/components/site/section";
-import { members } from "@/data/members";
+import { hasOwnPhoto, members } from "@/data/members";
+
+// Members with their own photo first, then the others, each in page order.
+const ordered = [...members.filter(hasOwnPhoto), ...members.filter((m) => !hasOwnPhoto(m))];
 
 /** A row of member portraits linking to the members page. */
 export function PeopleStrip() {
@@ -17,7 +20,7 @@ export function PeopleStrip() {
           </Link>
         </div>
         <ul className="flex flex-wrap gap-2.5">
-          {members.map((m) => (
+          {ordered.filter((m) => m.group !== "alumni").map((m) => (
             <li key={m.id}>
               <Link
                 to="/members/$id/"
